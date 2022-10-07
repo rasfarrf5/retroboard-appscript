@@ -36,6 +36,6 @@ Demo:
 - We are not responsible for security as it is tied with your Google Account
 
 ## License
-MIT
+MIT License
 
 ```Lets learn together!```

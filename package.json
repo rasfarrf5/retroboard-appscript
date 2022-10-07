@@ -1,0 +1,11 @@
+{
+  "name": "retroboard",
+  "version": "1.0.0",
+  "description": "Retroboard using App Script",
+  "main": "index.js",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@types/google-apps-script": "^1.0.55"
+  }
+}

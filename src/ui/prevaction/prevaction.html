@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <?!= include("ui/common/css-support"); ?>
+</head>
+
+<body class="position-relative">
+<nav class="navbar fixed-top bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand">
+            <img src="https://drive.google.com/uc?export=view&id=1BtNeApzUno04VBpqoq-CWmfJhNVcKDCl" alt="Logo"
+                 width="24" height="24" class="d-inline-block align-text-top">
+            <?= title ?><span class="navbar-text"> - Retrospective</span>
+        </a>
+    </div>
+</nav>
+<br/>
+<br/>
+<div class="container text-center">
+    <br/>
+    <input id="id-username-text" type="hidden" value="<?= username ?>"/>
+    <input id="id-complete-retro-url" type="hidden" value="<?= completedUrl ?>"/>
+
+    <h5>Previous Action Items</h5>
+    <br/>
+    <div id="id-loading-indicator" class="text-center">
+        <div class="spinner-border m-5" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Start: Retro Items Section-->
+    <div class="row pb-5">
+        <div class="col-auto p-3">
+            <ul class="list-unstyled" id="id-prev-action-items"></ul>
+        </div>
+    </div>
+    <!-- End: Retro Items Section-->
+</div>
+
+<footer class="footer mt-auto">
+
+    <div class="d-grid gap-2 col-6 mx-auto mb-3">
+        <button class="btn btn-primary btn-lg text-light me-2" type="button"
+                data-bs-toggle="modal" data-bs-target="#id-model-retro-complete-confirmation">Complete Retro
+        </button>
+    </div>
+
+    <ul class="pagination me-3 justify-content-end">
+        <li class="page-item">
+            <a class="page-link" href="<?= retroboardUrl ?>">Retroboard</a>
+        </li>
+        <li class="page-item disabled">
+            <a class="page-link" href="#">Prev Action Items</a>
+        </li>
+    </ul>
+
+    <div class="col text-bg-success bg-opacity-10 py-3">
+        <div class="text-center">
+            <p class="text-secondary">All content posted here are private and confidential.
+                <br/>© 2022 Copyright - Your Company
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- Start: Retro Open Card Model -->
+<div class="modal fade" id="id-model-retro-complete-confirmation" tabindex="-1"
+     aria-labelledby="modelLabelCompleteConfirmation" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                Do you want to complete the retro?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button id="id-btn-complete-retro" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#id-model-retro-completing">Complete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="id-model-retro-completing" aria-hidden="true" aria-labelledby="modelLabelCompleteLoading"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+            <div class="modal-body">
+                <div class="d-flex align-items-center">
+                    <strong>Completing Retro...</strong>
+                    <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Start: Retro Open Card Model -->
+
+</body>
+<?!= include("ui/common/js-support"); ?>
+<?!= include("ui/prevaction/prevaction-js"); ?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</html>

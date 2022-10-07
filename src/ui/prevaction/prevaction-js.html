@@ -1,0 +1,54 @@
+<script>
+
+    document.getElementById("id-btn-complete-retro").addEventListener("click", doOnCompleteRetro);
+
+    const ulPrevActions = document.getElementById("id-prev-action-items");
+    const loadingIndicator = document.getElementById("id-loading-indicator");
+    const completeRetroUrl = document.getElementById("id-complete-retro-url");
+
+    document.addEventListener('DOMContentLoaded', function () {
+        google.script.run
+            .withSuccessHandler(onPrevActionLoaded)
+            .loadPrevActionItems();
+    });
+
+    function onPrevActionLoaded(retroItems) {
+        showRetroItems(retroItems);
+        toggleLoadingIndicator(false);
+    }
+
+    function showRetroItems(retroItems) {
+        for (var i = 0; i < retroItems.prevActions.length; i++) {
+            var retroItem = retroItems.prevActions[i];
+
+            createLiElementForUlNew(ulPrevActions, retroItem);
+        }
+    }
+
+    function doOnCompleteRetro() {
+        const allNotChecked = document.querySelectorAll('input[type=checkbox]:not(:checked)');
+        const allNotCheckValues = Array.from(allNotChecked).map(checkbox => checkbox.value);
+
+        google.script.run.withSuccessHandler(function (_) {
+            window.open(completeRetroUrl.value, '_top');
+        }).completeRetro(allNotCheckValues);
+    }
+
+    function toggleLoadingIndicator(showLoading) {
+        if (showLoading) {
+            loadingIndicator.style.display = "block";
+        } else {
+            loadingIndicator.style.display = "none";
+        }
+    }
+
+    function createLiElementForUlNew(ulElement, retroItem) {
+        var content = '<div class="card p-3 mt-2 text-start shadow-sm"><div class="form-check"><input class="form-check-input" type="checkbox" value="' + retroItem + '" id="id-prev-action-' + retroItem + '"><label class="form-check-label" for="id-prev-action-' + retroItem + '">' + retroItem + '</label></div></div>'
+
+        var li = document.createElement("li");
+        li.innerHTML = content;
+        li.id = retroItem;
+
+        ulElement.appendChild(li);
+    }
+</script>

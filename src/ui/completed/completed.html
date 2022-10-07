@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <?!= include("ui/common/css-support"); ?>
+</head>
+
+<body class="position-relative">
+<nav class="navbar fixed-top bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand">
+            <img src="https://drive.google.com/uc?export=view&id=1BtNeApzUno04VBpqoq-CWmfJhNVcKDCl" alt="Logo"
+                 width="24" height="24" class="d-inline-block align-text-top">
+            <span class="navbar-text"> Retrospective</span>
+        </a>
+    </div>
+</nav>
+<br/>
+<br/>
+<div class="container text-center">
+    <br/>
+    <br/>
+    <input id="id-username-text" type="hidden" value="<?= username ?>"/>
+
+    <div class="text-center">
+        <img src="https://drive.google.com/uc?export=view&id=1C4vU3KPbim5y_GmMbRBz97o1YKQuRecA" alt="Thank You"
+             width="400" height="400">
+    </div>
+
+    <h3><?= username ?></h3>
+</div>
+
+<footer class="footer mt-auto">
+    <div class="col text-bg-success bg-opacity-10 py-3">
+        <div class="text-center">
+            <p class="text-secondary">All content posted here are private and confidential.
+                <br/>© 2022 Copyright - Your Company
+            </p>
+        </div>
+    </div>
+</footer>
+
+</body>
+<?!= include("ui/common/js-support"); ?>
+</html>

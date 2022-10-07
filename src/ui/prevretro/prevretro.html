@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <?!= include("ui/common/css-support"); ?>
+</head>
+
+<body class="position-relative">
+<main>
+    <nav class="navbar fixed-top bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">
+                <img src="https://drive.google.com/uc?export=view&id=1BtNeApzUno04VBpqoq-CWmfJhNVcKDCl" alt="Logo"
+                     width="24" height="24" class="d-inline-block align-text-top">
+                <?= title ?><span class="navbar-text"> - Previous Retroboard</span>
+            </a>
+            <div class="d-flex">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar"
+                        aria-controls="offcanvasNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                     aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div class="col d-flex">
+                            <h5 class="offcanvas-title" id="if-navtitle-prev-retroboard">Previous Retroboard</h5>
+                        </div>
+                        <br>
+                        <div class="col d-flex card">
+                            <ul class="list-group list-group-flush" id="id-ul-prev-retroboards"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <br/>
+    <br/>
+    <div class="container text-center">
+        <br/>
+        <input id="id-prev-retroboard-name" type="hidden" value="<?= prevRetroboardName ?>"/>
+        <input id="id-prev-retroboard-url" type="hidden" value="<?= prevRetroboardUrl ?>"/>
+
+        <!-- Start: Retro Section-->
+        <div class="retro-content">
+            <!-- Start: Retro input Section-->
+            <div class="row d-flex justify-content-center">
+                <div class="col retro-item-card">
+                    <div class="card shadow-sm">
+                        <div class="card-body"><p>🙂 Went Well</p></div>
+                    </div>
+                </div>
+                <div class="col retro-item-card">
+                    <div class="card shadow-sm">
+                        <div class="card-body"><p>🫤 To Improve</p></div>
+                    </div>
+                </div>
+                <div class="col retro-item-card">
+                    <div class="card shadow-sm">
+                        <div class="card-body"><p>✅ Action Items</p></div>
+                    </div>
+                </div>
+                <div class="col retro-item-card">
+                    <div class="card shadow-sm">
+                        <div class="card-body"><p>💡 Ideas</p></div>
+                    </div>
+                </div>
+                <div class="col retro-item-card">
+                    <div class="card shadow-sm">
+                        <div class="card-body"><p>🙇🏽‍♂️ Thanks</p></div>
+                    </div>
+                </div>
+            </div>
+            <!-- End: Retro input Section-->
+
+            <!-- Start: Retro Items Section-->
+            <div class="row d-flex justify-content-center">
+                <div class="col p-3 retro-item-card">
+                    <ul class="list-unstyled" id="id-ul-went-well-items"></ul>
+                </div>
+                <div class="col p-3 retro-item-card">
+                    <ul class="list-unstyled" id="id-ul-to-improve-items"></ul>
+                </div>
+                <div class="col p-3 retro-item-card">
+                    <ul class="list-unstyled" id="id-ul-action-item-items"></ul>
+                </div>
+                <div class="col p-3 retro-item-card">
+                    <ul class="list-unstyled" id="id-ul-ideas-items"></ul>
+                </div>
+                <div class="col p-3 retro-item-card">
+                    <ul class="list-unstyled" id="id-ul-thanks-items"></ul>
+                </div>
+            </div>
+            <!-- End: Retro Items Section-->
+        </div>
+        <!-- End: Retro Section-->
+        <div id="id-loading-indicator" class="text-center">
+            <div class="spinner-border m-5" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer mt-auto">
+    <ul class="pagination me-3 justify-content-end">
+        <li class="page-item">
+            <a class="page-link" href="<?= retroboardUrl ?>">Retroboard</a>
+        </li>
+        <li class="page-item disabled">
+            <a class="page-link" href="#">Previous Retroboard</a>
+        </li>
+    </ul>
+
+    <div class="col text-bg-success bg-opacity-10 py-3">
+        <div class="text-center">
+            <p class="text-secondary">All content posted here are private and confidential.
+                <br/>© 2022 Copyright - Your Company
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- Start: Retro Open Card Model -->
+<div class="modal fade" id="id-retro-item-detail-model" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="id-retro-model-card" class="modal-content">
+            <div class="modal-body">
+                <input id="id-model-retro-item" type="hidden"/>
+                <input id="id-model-retro-item-type" type="hidden"/>
+                <h4 id="id-retro-model-message" class="card-text"></h4>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End: Retro Open Card Model -->
+
+</body>
+<?!= include("ui/common/js-support"); ?>
+<?!= include("ui/prevretro/prevretro-js"); ?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</html>

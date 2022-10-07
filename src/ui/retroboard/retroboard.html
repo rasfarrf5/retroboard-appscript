@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Your Company - Retroboard</title>
+    <base target="_top">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?!= include("ui/common/css-support"); ?>
+</head>
+
+<body class="position-relative">
+<main>
+    <nav class="navbar fixed-top bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">
+                <img src="https://drive.google.com/uc?export=view&id=1BtNeApzUno04VBpqoq-CWmfJhNVcKDCl" alt="Logo"
+                     width="24" height="24" class="d-inline-block align-text-top">
+                <?= title ?><span class="navbar-text"> - Retrospective</span>
+            </a>
+            <div class="d-flex">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar"
+                        aria-controls="offcanvasNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                     aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div class="col d-flex">
+                            <h5 class="offcanvas-title" id="if-navtitle-settings">Settings</h5>
+                        </div>
+                        <br>
+                        <form class="d-flex" role="search">
+                            <input id="id-retro-board-title-text" class="form-control me-2" type="search"
+                                   placeholder="Retroboard Title" aria-label="Search">
+                            <button id="id-retro-board-title-btn" class="btn btn-outline-danger" type="button"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#id-model-retro-title-confirmation">Update
+                            </button>
+                        </form>
+                        <form class="col d-flex form-check form-switch p-3">
+                            <div class="col-md-auto"><label class="nav-link active">Auto Refresh</label></div>
+                            <div class="col"></div>
+                            <div class="col-md-auto">
+                                <input class="form-check-input" type="checkbox" id="id-auto-refresh-switch" checked
+                                       onclick="onAutoRefreshEnabled(this);">
+                            </div>
+                        </form>
+                        <br>
+                        <div class="col d-flex">
+                            <h5 class="offcanvas-title" id="if-navtitle-prev-retroboard">Previous Retroboard</h5>
+                        </div>
+                        <br>
+                        <div class="col d-flex card">
+                            <ul class="list-group list-group-flush" id="id-ul-prev-retroboards"></ul>
+                        </div>
+                        <div id="id-loading-prevretroboard-indicator" class="text-center">
+                            <div class="spinner-border m-5" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <br/>
+    <br/>
+    <div class="container text-center">
+        <br/>
+        <input id="id-username-text" type="hidden" value="<?= username ?>"/>
+        <input id="id-prev-retroboard-url" type="hidden" value="<?= prevRetroboardUrl ?>"/>
+
+        <!-- Start: Retro Section-->
+        <div class="retro-content">
+            <!-- Start: Retro input Section-->
+            <div class="row d-flex justify-content-center">
+                <div class="col p-3 retro-item-card">
+                    <div class="row">
+                        <div class="card shadow-sm">
+                            <textarea id="id-went-well-text" placeholder="🙂 Went Well"></textarea>
+                            <button id="id-went-well-btn" type="button"
+                                    class="btn btn-primary btn-sm add-item-btn border-0 position-absolute bottom-0 end-0">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-3 retro-item-card">
+                    <div class="row">
+                        <div class="card shadow-sm">
+                            <textarea id="id-to-improve-text" placeholder="🫤 To Improve"></textarea>
+                            <button id="id-to-improve-btn" type="button"
+                                    class="btn btn-primary btn-sm add-item-btn border-0 position-absolute bottom-0 end-0">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-3 retro-item-card">
+                    <div class="row">
+                        <div class="card shadow-sm">
+                        <textarea id="id-action-items-text"
+                                  placeholder="✅ Action Items"></textarea>
+                            <button id="id-action-items-btn" type="button"
+                                    class="btn btn-primary btn-sm add-item-btn border-0 position-absolute bottom-0 end-0">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-3 retro-item-card">
+                    <div class="row">
+                        <div class="card shadow-sm">
+                            <textarea id="id-idea-text" placeholder="💡 Ideas"></textarea>
+                            <button id="id-idea-btn" type="button"
+                                    class="btn btn-primary btn-sm add-item-btn border-0 position-absolute bottom-0 end-0">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-3 retro-item-card">
+                    <div class="row">
+                        <div class="card shadow-sm">
+                            <textarea id="id-thanks-text" placeholder="🙇🏽‍♂️ Thanks"></textarea>
+                            <button id="id-thanks-btn" type="button"
+                                    class="btn btn-primary btn-sm add-item-btn border-0 position-absolute bottom-0 end-0">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End: Retro input Section-->
+
+            <!-- Start: Retro Items Section-->
+            <div class="row d-flex justify-content-center">
+                <div class="col p-3 retro-item-card">
+                    <ul class="list-unstyled" id="id-ul-went-well-items"></ul>
+                </div>
+                <div class="col p-3 retro-item-card">
+                    <ul class="list-unstyled" id="id-ul-to-improve-items"></ul>
+                </div>
+                <div class="col p-3 retro-item-card">
+                    <ul class="list-unstyled" id="id-ul-action-item-items"></ul>
+                </div>
+                <div class="col p-3 retro-item-card">
+                    <ul class="list-unstyled" id="id-ul-ideas-items"></ul>
+                </div>
+                <div class="col p-3 retro-item-card">
+                    <ul class="list-unstyled" id="id-ul-thanks-items"></ul>
+                </div>
+            </div>
+            <!-- End: Retro Items Section-->
+        </div>
+        <!-- End: Retro Section-->
+
+        <div id="id-loading-indicator" class="text-center">
+            <div class="spinner-border m-5" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer mt-auto">
+    <ul class="pagination me-3 justify-content-end">
+        <li class="page-item disabled">
+            <a class="page-link">Retroboard</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="<?= prevActionUrl ?>">Previous Action Items</a>
+        </li>
+    </ul>
+
+    <div class="col text-bg-success bg-opacity-10 py-3">
+        <div class="text-center">
+            <p class="text-secondary">All content posted here are private and confidential.
+                <br/>© 2022 Copyright - Your Company
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- Start: Model Impl Section -->
+
+<!-- Start: Retro Open Card Model -->
+<div class="modal fade" id="id-retro-item-detail-model" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="id-retro-model-card" class="modal-content">
+            <div class="modal-body">
+                <input id="id-model-retro-item" type="hidden"/>
+                <input id="id-model-retro-item-type" type="hidden"/>
+                <h4 id="id-retro-model-message" class="card-text"></h4>
+            </div>
+            <div class="modal-footer">
+                <button id="id-retro-model-done-btn" type="button" class="btn btn-light">DONE</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="id-model-retro-title-confirmation" tabindex="-1"
+     aria-labelledby="modelLabelUpdateTitleConfirmation" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                Are you sure to update the retro title?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button id="id-btn-complete-retro" type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#id-model-retro-title-update">Update
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="id-model-retro-title-update" aria-hidden="true"
+     aria-labelledby="modelLabelTitleUpdateLoading"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+            <div class="modal-body">
+                <div class="d-flex align-items-center">
+                    <strong>Updatint Retro Title...</strong>
+                    <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End: Retro Open Card Model -->
+
+<!-- End: Model Impl Section -->
+</body>
+<?!= include("ui/common/js-support"); ?>
+<?!= include("ui/retroboard/retroboard-js"); ?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+
+</html>

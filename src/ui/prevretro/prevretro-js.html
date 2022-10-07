@@ -1,0 +1,131 @@
+<script>
+
+    const loadingIndicator = document.getElementById("id-loading-indicator");
+
+    const ulWentWell = document.getElementById("id-ul-went-well-items");
+    const ulToImprove = document.getElementById("id-ul-to-improve-items");
+    const ulActionItems = document.getElementById("id-ul-action-item-items");
+    const ulIdeas = document.getElementById("id-ul-ideas-items");
+    const ulThanks = document.getElementById("id-ul-thanks-items");
+    const ulPrevRetroboards = document.getElementById("id-ul-prev-retroboards");
+
+    const prevRetroboardName = document.getElementById("id-prev-retroboard-name");
+    const prevRetroboardUrl = document.getElementById("id-prev-retroboard-url");
+
+    let retroModel;
+    // Model
+    const modelDialogCard = document.getElementById("id-retro-model-card");
+    const modelText = document.getElementById("id-retro-model-message");
+
+    document.addEventListener('DOMContentLoaded', function () {
+        retroModel = new bootstrap.Modal('#id-retro-item-detail-model');
+
+        google.script.run
+            .withSuccessHandler(showRetroItems)
+            .loadPrevRetroboardItems(prevRetroboardName.value);
+    });
+
+    function showRetroItems(retroItems) {
+        let i;
+        let retroItem;
+
+        for (i = 0; i < retroItems.wentWell.length; i++) {
+            retroItem = retroItems.wentWell[i];
+
+            if (isNotEmpty(retroItem.item)) {
+                createLiElementForUlNew(ulWentWell, retroItem, "went-well", "text-light", false);
+            }
+        }
+
+        for (i = 0; i < retroItems.toImprove.length; i++) {
+            retroItem = retroItems.toImprove[i];
+
+            if (isNotEmpty(retroItem.item)) {
+                createLiElementForUlNew(ulToImprove, retroItem, "to-improve", "text-light", false);
+            }
+        }
+
+        for (i = 0; i < retroItems.actionItems.length; i++) {
+            retroItem = retroItems.actionItems[i];
+
+            if (isNotEmpty(retroItem.item)) {
+                createLiElementForUlNew(ulActionItems, retroItem, "action-items", "text-light", false);
+            }
+        }
+
+        for (i = 0; i < retroItems.ideas.length; i++) {
+            retroItem = retroItems.ideas[i];
+
+            if (isNotEmpty(retroItem.item)) {
+                createLiElementForUlNew(ulIdeas, retroItem, "idea", "text-dark", false);
+            }
+        }
+
+        for (i = 0; i < retroItems.thanks.length; i++) {
+            retroItem = retroItems.thanks[i];
+
+            if (isNotEmpty(retroItem.item)) {
+                createLiElementForUlNew(ulThanks, retroItem, "thanks", "text-dark", false);
+            }
+        }
+
+        for (i = 0; i < retroItems.prevRetroboards.length; i++) {
+            retroItem = retroItems.prevRetroboards[i];
+
+            const li = document.createElement("li");
+            li.innerHTML = '<p id="id-prev-retroboard-' + retroItem.id + '" class="card-text" onclick="showPrevRetroboard(\'' + retroItem.name + '\')" style="max-height: 80px;">' + retroItem.name + '</p>';
+            li.id = retroItem.id;
+            li.setAttribute("class", "list-group-item list-group-item-action");
+            ulPrevRetroboards.appendChild(li);
+        }
+
+        toggleLoadingIndicator(false);
+    }
+
+    function showPrevRetroboard(name) {
+        window.open(prevRetroboardUrl.value + "&name=" + name, '_top');
+    }
+
+    function createLiElementForUlNew(ulElement, retroItem, cardType, textColor, isLocal) {
+        var item;
+        if (isLocal) {
+            item = retroItem.item;
+        } else {
+            item = JSON.parse(retroItem.item);
+        }
+
+        var liBgColor = cardType + "-card";
+        var contentTextColor = textColor;
+
+        const likeIcon = '<i id="id-ic-like-' + retroItem.id + '" class="bi bi-hand-thumbs-up-fill ' + contentTextColor + '"></i> ';
+        const likeActionView = '<button type="button" id="id-like-' + retroItem.id + '" class="btn btn-sm ' + contentTextColor + '" >' + likeIcon + item.likeCount + '</button>';
+        var actionDiv = '<div class="card-link position-absolute bottom-0 end-0">' + likeActionView + '</div>';
+
+        var liDiv = '<div class="card-body p-2 mb-2">';
+        var content = '<p id="id-message-' + retroItem.id + '" class="truncate-overflow card-text text-wrap ' + contentTextColor + '" onclick="showRetroMessage(\'' + retroItem.id + '\',\'' + item.message + '\',\'' + cardType + '\',\'' + textColor + '\')" style="max-height: 80px;">' + item.message + '</p>';
+        const action = liDiv + content + actionDiv + '</div>';
+
+        var li = document.createElement("li");
+        li.innerHTML = action
+        li.setAttribute("class", "row card shadow-sm mt-2 " + liBgColor);
+        li.id = retroItem.id;
+        ulElement.appendChild(li);
+    }
+
+    function showRetroMessage(id, message, cardType, textColor) {
+        modelText.innerHTML = message;
+        modelText.setAttribute("class", textColor);
+        modelDialogCard.setAttribute("class", cardType + "-card modal-content");
+
+        retroModel.show();
+    }
+
+    function toggleLoadingIndicator(showLoading) {
+        if (showLoading) {
+            loadingIndicator.style.display = "block";
+        } else {
+            loadingIndicator.style.display = "none";
+        }
+    }
+
+</script>

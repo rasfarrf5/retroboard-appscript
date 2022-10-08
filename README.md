@@ -8,6 +8,7 @@ This is new retroboard developed using Google App Script and Google Sheet to sto
 2. Open Google Sheet and add 2 sheets
    2.1 First Sheet name as `retrospective` to store ongoing retro items.
    2.2 Second Sheet name as `config` to store retrospective sprint value.
+   2.3 Attached sample excel sheet in the demo folder with name `retro-clasp.xlsx` for reference.
 3. Open App Script file and you should see App Script Editor
    3.1 For Clasp support
     - Checkout this repo and config your clasp.json ID and push it directly.
@@ -28,7 +29,7 @@ This is new retroboard developed using Google App Script and Google Sheet to sto
 Demo:
 | Screen 1 | Screen 2 |
 | --- | --- |
-|![Screen 1](https://github.com/rasfarrf5/retroboard-appscript/blob/main/images/screen-1.png)|![Screen 2](https://github.com/rasfarrf5/retroboard-appscript/blob/main/images/screen-2.png) |
+|![Screen 1](https://github.com/rasfarrf5/retroboard-appscript/blob/main/demo/screen-1.png)|![Screen 2](https://github.com/rasfarrf5/retroboard-appscript/blob/main/demo/screen-2.png) |
 
 ## More Info:
 - Replace your company name and url to show app logo

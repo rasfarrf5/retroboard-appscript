@@ -17,7 +17,7 @@ function addRetroItem(content) {
 function addWentWellRetroItem(retroItem) {
     const retroSheet = getRetroSheet();
 
-    var rowNumber = getLastAvailableRowIndex("A1:A");
+    const rowNumber = getLastAvailableRowIndex("A1:A");
 
     retroSheet.getRange(rowNumber, 1).setValue(retroItem.id);
     retroSheet.getRange(rowNumber, 2).setValue(JSON.stringify(retroItem.item));
@@ -26,7 +26,7 @@ function addWentWellRetroItem(retroItem) {
 function addToImproveRetroItem(retroItem) {
     const retroSheet = getRetroSheet();
 
-    var rowNumber = getLastAvailableRowIndex("C1:C");
+    const rowNumber = getLastAvailableRowIndex("C1:C");
 
     retroSheet.getRange(rowNumber, 3).setValue(retroItem.id);
     retroSheet.getRange(rowNumber, 4).setValue(JSON.stringify(retroItem.item));
@@ -35,7 +35,7 @@ function addToImproveRetroItem(retroItem) {
 function addActionItemsRetroItem(retroItem) {
     const retroSheet = getRetroSheet();
 
-    var rowNumber = getLastAvailableRowIndex("E1:E");
+    const rowNumber = getLastAvailableRowIndex("E1:E");
 
     retroSheet.getRange(rowNumber, 5).setValue(retroItem.id);
     retroSheet.getRange(rowNumber, 6).setValue(JSON.stringify(retroItem.item));
@@ -44,7 +44,7 @@ function addActionItemsRetroItem(retroItem) {
 function addIdeasRetroItem(retroItem) {
     const retroSheet = getRetroSheet();
 
-    var rowNumber = getLastAvailableRowIndex("G1:G");
+    const rowNumber = getLastAvailableRowIndex("G1:G");
 
     retroSheet.getRange(rowNumber, 7).setValue(retroItem.id);
     retroSheet.getRange(rowNumber, 8).setValue(JSON.stringify(retroItem.item));
@@ -53,7 +53,7 @@ function addIdeasRetroItem(retroItem) {
 function addThanksRetroItem(retroItem) {
     const retroSheet = getRetroSheet();
 
-    var rowNumber = getLastAvailableRowIndex("I1:I");
+    const rowNumber = getLastAvailableRowIndex("I1:I");
 
     retroSheet.getRange(rowNumber, 9).setValue(retroItem.id);
     retroSheet.getRange(rowNumber, 10).setValue(JSON.stringify(retroItem.item));
@@ -62,7 +62,7 @@ function addThanksRetroItem(retroItem) {
 function addPrevActionRetroItem(actionItems) {
     const retroSheet = getRetroSheet();
     actionItems.forEach(function(value, index) {
-        var rowIndex = 2 + index;
+        const rowIndex = 2 + index;
         retroSheet.getRange(rowIndex, 11).setValue(value);
     });
 }

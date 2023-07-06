@@ -7,12 +7,14 @@
     document.getElementById("id-idea-btn").addEventListener("click", addIdeaItem);
     document.getElementById("id-thanks-btn").addEventListener("click", addThanksItem);
     document.getElementById("id-retro-model-done-btn").addEventListener("click", onDoneClicked);
-    document.getElementById("id-btn-complete-retro").addEventListener("click", onUpdateTitleClicked);
+    document.getElementById("id-btn-update-retro").addEventListener("click", onUpdateTitleClicked);
+    document.getElementById("id-btn-complete-retro").addEventListener("click", doOnCompleteRetro);
 
     const userNameText = document.getElementById("id-username-text");
     const prevRetroboardUrl = document.getElementById("id-prev-retroboard-url");
     const loadingIndicator = document.getElementById("id-loading-indicator");
     const prevRetroLoadingIndicator = document.getElementById("id-loading-prevretroboard-indicator");
+    const completeRetroUrl = document.getElementById("id-complete-retro-url");
 
     const wentWellText = document.getElementById("id-went-well-text");
     const toImproveText = document.getElementById("id-to-improve-text");
@@ -248,6 +250,12 @@
         console.log("AutoRefresh - Loading End");
     }
 
+    function doOnCompleteRetro() {
+        google.script.run.withSuccessHandler(function (_) {
+            window.open(completeRetroUrl.value, '_top');
+        }).completeRetroWithoutClearPrevAction();
+    }
+
     function isListNotAdded(id) {
         return document.getElementById(id) === null;
     }
@@ -443,7 +451,7 @@
         modelRetroItemType.value = cardType;
 
         var btnColor = "btn-outline-dark";
-        if(textColor == 'text-light') {
+        if (textColor == 'text-light') {
             btnColor = "btn-outline-light";
         }
         retroMessageCancelBtn.setAttribute("class", "btn btn-sm " + btnColor);
@@ -501,28 +509,28 @@
 
     function escape(s) {
         return ('' + s)
-          .replace(/\\/g, '\\\\')
-          .replace(/\t/g, '\\t')
-          .replace(/\n/g, '\\n')
-          .replace(/\u00A0/g, '\\u00A0')
-          .replace(/&/g, '\\x26')
-          .replace(/'/g, '\\x27')
-          .replace(/"/g, '\\x22')
-          .replace(/</g, '\\x3C')
-          .replace(/>/g, '\\x3E')
-          .trim();
+            .replace(/\\/g, '\\\\')
+            .replace(/\t/g, '\\t')
+            .replace(/\n/g, '\\n')
+            .replace(/\u00A0/g, '\\u00A0')
+            .replace(/&/g, '\\x26')
+            .replace(/'/g, '\\x27')
+            .replace(/"/g, '\\x22')
+            .replace(/</g, '\\x3C')
+            .replace(/>/g, '\\x3E')
+            .trim();
     }
 
     function unescape(s) {
         s = ('' + s)
-        .replace(/\\x3E/g, '>')
-        .replace(/\\x3C/g, '<')
-        .replace(/\\x22/g, '"')
-        .replace(/\\x27/g, "'")
-        .replace(/\\x26/g, '&')
-        .replace(/\\u00A0/g, '\u00A0')
-        .replace(/\\n/g, '\n')
-        .replace(/\\t/g, '\t');
+            .replace(/\\x3E/g, '>')
+            .replace(/\\x3C/g, '<')
+            .replace(/\\x22/g, '"')
+            .replace(/\\x27/g, "'")
+            .replace(/\\x26/g, '&')
+            .replace(/\\u00A0/g, '\u00A0')
+            .replace(/\\n/g, '\n')
+            .replace(/\\t/g, '\t');
 
         return s.replace(/\\\\/g, '\\');
     }

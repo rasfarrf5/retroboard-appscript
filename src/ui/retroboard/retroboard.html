@@ -11,9 +11,8 @@
     <?!= include("ui/common/css-support"); ?>
 </head>
 
-<body class="position-relative">
-<main>
-    <nav class="navbar fixed-top bg-light">
+<div class="wrapper">
+    <nav class="navbar fixed-top bg-light header">
         <div class="container-fluid">
             <a class="navbar-brand align-middle">
                 <img src="<?= companyLogo ?>" alt="Logo" height="32" class="d-inline-block">
@@ -70,127 +69,143 @@
             </div>
         </div>
     </nav>
-    <br/>
-    <br/>
-    <div class="container text-center">
-        <br/>
-        <input id="id-username-text" type="hidden" value="<?= username ?>"/>
-        <input id="id-prev-retroboard-url" type="hidden" value="<?= prevRetroboardUrl ?>"/>
+    <div class="content">
+        <div style="height:1000px;">
+            <br/>
+            <br/>
+            <div class="container text-center">
+                <br/>
+                <input id="id-username-text" type="hidden" value="<?= username ?>"/>
+                <input id="id-prev-retroboard-url" type="hidden" value="<?= prevRetroboardUrl ?>"/>
+                <input id="id-complete-retro-url" type="hidden" value="<?= completedUrl ?>"/>
 
-        <!-- Start: Retro Section-->
-        <div class="retro-content">
-            <!-- Start: Retro input Section-->
-            <div class="row d-flex justify-content-center">
-                <div class="col p-3 retro-item-card">
-                    <div class="row">
-                        <div class="card shadow-sm">
-                            <textarea id="id-went-well-text" placeholder="🙂 Went Well"></textarea>
-                            <button id="id-went-well-btn" type="button"
-                                    class="btn btn-primary btn-sm add-item-btn border-0 position-absolute bottom-0 end-0">
-                                Add
-                            </button>
+                <!-- Start: Retro Section-->
+                <div class="retro-content">
+                    <!-- Start: Retro input Section-->
+                    <div class="row d-flex justify-content-center">
+                        <div class="col p-3 retro-item-card">
+                            <div class="row">
+                                <div class="card shadow-sm">
+                                    <textarea id="id-went-well-text" placeholder="🙂 Went Well"></textarea>
+                                    <button id="id-went-well-btn" type="button"
+                                            class="btn btn-primary btn-sm add-item-btn border-0 position-absolute bottom-0 end-0">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col p-3 retro-item-card">
-                    <div class="row">
-                        <div class="card shadow-sm">
-                            <textarea id="id-to-improve-text" placeholder="🫤 To Improve"></textarea>
-                            <button id="id-to-improve-btn" type="button"
-                                    class="btn btn-primary btn-sm add-item-btn border-0 position-absolute bottom-0 end-0">
-                                Add
-                            </button>
+                        <div class="col p-3 retro-item-card">
+                            <div class="row">
+                                <div class="card shadow-sm">
+                                    <textarea id="id-to-improve-text" placeholder="🫤 To Improve"></textarea>
+                                    <button id="id-to-improve-btn" type="button"
+                                            class="btn btn-primary btn-sm add-item-btn border-0 position-absolute bottom-0 end-0">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col p-3 retro-item-card">
-                    <div class="row">
-                        <div class="card shadow-sm">
+                        <div class="col p-3 retro-item-card">
+                            <div class="row">
+                                <div class="card shadow-sm">
                         <textarea id="id-action-items-text"
                                   placeholder="✅ Action Items"></textarea>
-                            <button id="id-action-items-btn" type="button"
-                                    class="btn btn-primary btn-sm add-item-btn border-0 position-absolute bottom-0 end-0">
-                                Add
-                            </button>
+                                    <button id="id-action-items-btn" type="button"
+                                            class="btn btn-primary btn-sm add-item-btn border-0 position-absolute bottom-0 end-0">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col p-3 retro-item-card">
+                            <div class="row">
+                                <div class="card shadow-sm">
+                                    <textarea id="id-idea-text" placeholder="💡 Ideas"></textarea>
+                                    <button id="id-idea-btn" type="button"
+                                            class="btn btn-primary btn-sm add-item-btn border-0 position-absolute bottom-0 end-0">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col p-3 retro-item-card">
+                            <div class="row">
+                                <div class="card shadow-sm">
+                                    <textarea id="id-thanks-text" placeholder="🙇🏽‍♂️ Thanks"></textarea>
+                                    <button id="id-thanks-btn" type="button"
+                                            class="btn btn-primary btn-sm add-item-btn border-0 position-absolute bottom-0 end-0">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col p-3 retro-item-card">
-                    <div class="row">
-                        <div class="card shadow-sm">
-                            <textarea id="id-idea-text" placeholder="💡 Ideas"></textarea>
-                            <button id="id-idea-btn" type="button"
-                                    class="btn btn-primary btn-sm add-item-btn border-0 position-absolute bottom-0 end-0">
-                                Add
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col p-3 retro-item-card">
-                    <div class="row">
-                        <div class="card shadow-sm">
-                            <textarea id="id-thanks-text" placeholder="🙇🏽‍♂️ Thanks"></textarea>
-                            <button id="id-thanks-btn" type="button"
-                                    class="btn btn-primary btn-sm add-item-btn border-0 position-absolute bottom-0 end-0">
-                                Add
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End: Retro input Section-->
+                    <!-- End: Retro input Section-->
 
-            <!-- Start: Retro Items Section-->
-            <div class="row d-flex justify-content-center">
-                <div class="col p-3 retro-item-card">
-                    <ul class="list-unstyled" id="id-ul-went-well-items"></ul>
+                    <!-- Start: Retro Items Section-->
+                    <div class="row d-flex justify-content-center">
+                        <div class="col p-3 retro-item-card">
+                            <ul class="list-unstyled" id="id-ul-went-well-items"></ul>
+                        </div>
+                        <div class="col p-3 retro-item-card">
+                            <ul class="list-unstyled" id="id-ul-to-improve-items"></ul>
+                        </div>
+                        <div class="col p-3 retro-item-card">
+                            <ul class="list-unstyled" id="id-ul-action-item-items"></ul>
+                        </div>
+                        <div class="col p-3 retro-item-card">
+                            <ul class="list-unstyled" id="id-ul-ideas-items"></ul>
+                        </div>
+                        <div class="col p-3 retro-item-card">
+                            <ul class="list-unstyled" id="id-ul-thanks-items"></ul>
+                        </div>
+                    </div>
+                    <!-- End: Retro Items Section-->
                 </div>
-                <div class="col p-3 retro-item-card">
-                    <ul class="list-unstyled" id="id-ul-to-improve-items"></ul>
-                </div>
-                <div class="col p-3 retro-item-card">
-                    <ul class="list-unstyled" id="id-ul-action-item-items"></ul>
-                </div>
-                <div class="col p-3 retro-item-card">
-                    <ul class="list-unstyled" id="id-ul-ideas-items"></ul>
-                </div>
-                <div class="col p-3 retro-item-card">
-                    <ul class="list-unstyled" id="id-ul-thanks-items"></ul>
+                <!-- End: Retro Section-->
+
+                <div id="id-loading-indicator" class="text-center">
+                    <div class="spinner-border m-5" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                 </div>
             </div>
-            <!-- End: Retro Items Section-->
+
         </div>
-        <!-- End: Retro Section-->
-
-        <div id="id-loading-indicator" class="text-center">
-            <div class="spinner-border m-5" role="status">
-                <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="footer">
+        <br/>
+        <div class="row align-baseline">
+            <div class="col"></div>
+            <div class="col">
+                <div class="d-grid mx-auto mb-3 align-middle">
+                    <button class="btn btn-primary btn-lg text-light me-2" type="button"
+                            data-bs-toggle="modal" data-bs-target="#id-model-retro-complete-confirmation">Complete Retro
+                    </button>
+                </div>
+            </div>
+            <div class="col">
+                <ul class="pagination me-3 justify-content-end">
+                    <li class="page-item disabled">
+                        <a class="page-link">Retroboard</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="<?= prevActionUrl ?>">Previous Action Items</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col text-bg-success bg-opacity-10 py-3">
+            <div class="text-center">
+                <p class="text-secondary">All content posted here are private and confidential.
+                    <br/>© 2022 Copyright - <?= companyName ?>
+                </p>
             </div>
         </div>
     </div>
-</main>
-
-<footer class="footer mt-auto">
-    <ul class="pagination me-3 justify-content-end">
-        <li class="page-item disabled">
-            <a class="page-link">Retroboard</a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="<?= prevActionUrl ?>">Previous Action Items</a>
-        </li>
-    </ul>
-
-    <div class="col text-bg-success bg-opacity-10 py-3">
-        <div class="text-center">
-            <p class="text-secondary">All content posted here are private and confidential.
-                <br/>© 2022 Copyright - <?= companyName ?>
-            </p>
-        </div>
-    </div>
-</footer>
+</div>
 
 <!-- Start: Model Impl Section -->
-
 <!-- Start: Retro Open Card Model -->
 <div class="modal fade" id="id-retro-item-detail-model" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -199,11 +214,13 @@
                 <input id="id-model-retro-item" type="hidden"/>
                 <input id="id-model-retro-item-type" type="hidden"/>
                 <div class="text-break">
-                  <h4 id="id-retro-model-message" class="card-text"></h4>
+                    <h4 id="id-retro-model-message" class="card-text"></h4>
                 </div>
             </div>
             <div class="modal-footer border-0">
-                <button id="id-retro-model-cancel-btn" type="button" class="btn btn-outline-dark btn-sm" data-bs-dismiss="modal">CANCEL</button>
+                <button id="id-retro-model-cancel-btn" type="button" class="btn btn-outline-dark btn-sm"
+                        data-bs-dismiss="modal">CANCEL
+                </button>
                 <button id="id-retro-model-done-btn" type="button" class="btn btn-success btn-sm">DONE</button>
             </div>
         </div>
@@ -219,7 +236,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button id="id-btn-complete-retro" type="button" class="btn btn-danger" data-bs-toggle="modal"
+                <button id="id-btn-update-retro" type="button" class="btn btn-danger" data-bs-toggle="modal"
                         data-bs-target="#id-model-retro-title-update">Update
                 </button>
             </div>
@@ -240,8 +257,36 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="id-model-retro-complete-confirmation" tabindex="-1"
+     aria-labelledby="modelLabelCompleteConfirmation" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                Do you want to complete the retro without checking previous action items?
+            </div>
+            <div class="modal-footer">
+                <button id="id-btn-complete-retro" type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#id-model-retro-completing">Complete Retro
+                </button>
+                <a class="btn btn-primary" href="<?= prevActionUrl ?>">Previous Action Items</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="id-model-retro-completing" aria-hidden="true" aria-labelledby="modelLabelCompleteLoading"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+            <div class="modal-body">
+                <div class="d-flex align-items-center">
+                    <strong>Completing Retro...</strong>
+                    <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- End: Retro Open Card Model -->
-
 <!-- End: Model Impl Section -->
 </body>
 <?!= include("ui/common/js-support"); ?>

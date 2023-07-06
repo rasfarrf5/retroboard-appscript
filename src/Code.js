@@ -1,6 +1,6 @@
 // On Script Starts
 function doGet(e) {
-    var userName = Session.getActiveUser().getUsername();
+    let userName = Session.getActiveUser().getUsername();
     if (userName == "") {
         userName = "unknown";
     }
@@ -25,6 +25,7 @@ function loadRetroboardPage(userName) {
     htmlService.username = userName;
     htmlService.prevActionUrl = ScriptApp.getService().getUrl() + "?v=prevactions";
     htmlService.prevRetroboardUrl = ScriptApp.getService().getUrl() + "?v=prevretro";
+    htmlService.completedUrl = ScriptApp.getService().getUrl() + "?v=completed";
 
     return htmlService.evaluate().setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
@@ -43,7 +44,7 @@ function loadPrevActionPage(userName) {
 }
 
 function loadPrevRetroboardPage(sheetName) {
-    var htmlService = HtmlService.createTemplateFromFile("ui/prevretro/prevretro");
+    const  htmlService = HtmlService.createTemplateFromFile("ui/prevretro/prevretro");
 
     htmlService.title = getRetroTitle();
     htmlService.companyName = getCompanyName();

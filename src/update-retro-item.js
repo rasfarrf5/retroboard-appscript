@@ -1,15 +1,29 @@
 // Complete Sprint Retroboard
 function completeRetro(uncheckedActionItems) {
-    var retroSheet = getRetroSheet();
+    const retroSheet = getRetroSheet();
 
-    var destSheetName = getRetroTitle();
+    const destSheetName = getRetroTitle();
     retroSheet.copyTo(spreadSheet).setName(destSheetName);
 
-    var currActionItems = getCurrentActionItems();
+    const currActionItems = getCurrentActionItems();
     retroSheet.getRange("A2:K50").clearContent();
 
-    var actionItems = currActionItems.concat(uncheckedActionItems);
+    const actionItems = currActionItems.concat(uncheckedActionItems);
     addPrevActionRetroItem(actionItems);
+
+    clearRetroTitle();
+
+    return true;
+}
+
+function completeRetroWithoutClearPrevAction() {
+    const retroSheet = getRetroSheet();
+
+    const destSheetName = getRetroTitle();
+    retroSheet.copyTo(spreadSheet).setName(destSheetName);
+
+    retroSheet.getRange("A2:D50").clearContent();
+    retroSheet.getRange("G2:K50").clearContent();
 
     clearRetroTitle();
 
@@ -65,16 +79,16 @@ function readRetroItem(id, cardType) {
 }
 
 function deleteMessageById(columnId, contentColId, id) {
-    var content = retroSheet.getRange(columnId + "2:" + columnId);
+    const content = retroSheet.getRange(columnId + "2:" + columnId);
 
-    var data = content.getValues()
+    const data = content.getValues()
         .filter(function (t) {
             return t[0] !== "";
         });
 
-    var rowIndex = data.flat().indexOf(id);
+    const rowIndex = data.flat().indexOf(id);
     if (rowIndex !== -1) {
-        var index = rowIndex + 2;
+        const index = rowIndex + 2;
         retroSheet.getRange(contentColId + index).setValue("");
 
         return true;
@@ -83,19 +97,19 @@ function deleteMessageById(columnId, contentColId, id) {
 }
 
 function likeMessageById(columnId, contentColId, id) {
-    var content = retroSheet.getRange(columnId + "2:" + columnId);
+    const content = retroSheet.getRange(columnId + "2:" + columnId);
 
-    var data = content.getValues()
+    const data = content.getValues()
         .filter(function (t) {
             return t[0] !== "";
         });
 
-    var rowIndex = data.flat().indexOf(id);
+    const rowIndex = data.flat().indexOf(id);
     if (rowIndex !== -1) {
-        var index = rowIndex + 2;
-        var jsonData = retroSheet.getRange(contentColId + index).getValue();
+        const index = rowIndex + 2;
+        const jsonData = retroSheet.getRange(contentColId + index).getValue();
 
-        var item = JSON.parse(jsonData);
+        const item = JSON.parse(jsonData);
         item.likeCount += 1;
 
         retroSheet.getRange(contentColId + index).setValue(JSON.stringify(item));
@@ -106,19 +120,19 @@ function likeMessageById(columnId, contentColId, id) {
 }
 
 function readMessageById(columnId, contentColId, id) {
-    var content = retroSheet.getRange(columnId + "2:" + columnId);
+    const content = retroSheet.getRange(columnId + "2:" + columnId);
 
-    var data = content.getValues()
+    const data = content.getValues()
         .filter(function (t) {
             return t[0] !== "";
         });
 
-    var rowIndex = data.flat().indexOf(id);
+    const rowIndex = data.flat().indexOf(id);
     if (rowIndex !== -1) {
-        var index = rowIndex + 2;
-        var jsonData = retroSheet.getRange(contentColId + index).getValue();
+        const index = rowIndex + 2;
+        const jsonData = retroSheet.getRange(contentColId + index).getValue();
 
-        var item = JSON.parse(jsonData);
+        const item = JSON.parse(jsonData);
         item.isRead = true;
 
         retroSheet.getRange(contentColId + index).setValue(JSON.stringify(item));
@@ -134,7 +148,7 @@ function getCurrentActionItems() {
             return t[0] !== "" && t[1] !== "";
         })
         .map(function (e) {
-            var item = JSON.parse(e);
+            const item = JSON.parse(e);
             return item.message;
         });
 }

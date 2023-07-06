@@ -20,6 +20,8 @@
     const ideaText = document.getElementById("id-idea-text");
     const thanksText = document.getElementById("id-thanks-text");
     const retroTitleText = document.getElementById("id-retro-board-title-text");
+    const retroMessageCancelBtn = document.getElementById("id-retro-model-cancel-btn");
+    const retroMessageDoneBtn = document.getElementById("id-retro-model-done-btn");
 
     retroTitleText.addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
@@ -274,10 +276,6 @@
         }
     }
 
-    function showStatus(rowNum) {
-        console.log(rowNum);
-    }
-
     function addToImprove() {
         const content = toImproveText.value.trim();
         if (content !== "") {
@@ -383,15 +381,15 @@
 
         let deleteActionView = '';
         if (retroItem.showDelete) {
-            const deleteIcon = '<i id="id-ic-delete-' + retroItem.id + '" class="bi bi-trash-fill ' + contentTextColor + '"></i>';
+            const deleteIcon = '<i id="id-ic-delete-' + retroItem.id + '" class="bi bi-trash3 ' + contentTextColor + '"></i>';
             deleteActionView = '<button type="button" class="btn btn-sm" onclick="deleteRetroItem(\'' + ulElement.id + '\',\'' + retroItem.id + '\',\'' + cardType + '\')" id="id-delete-' + retroItem.id + '">' + deleteIcon + '</button>';
         }
-        const likeIcon = '<i id="id-ic-like-' + retroItem.id + '" class="bi bi-hand-thumbs-up-fill ' + contentTextColor + '"></i> ';
+        const likeIcon = '<i id="id-ic-like-' + retroItem.id + '" class="bi bi-hand-thumbs-up ' + contentTextColor + '"></i> ';
         const likeActionView = '<button type="button" id="id-like-' + retroItem.id + '" class="btn btn-sm ' + contentTextColor + '" onclick="showLike(\'' + retroItem.id + '\',\'' + cardType + '\',\'' + contentTextColor + '\')">' + likeIcon + item.likeCount + '</button>';
         const actionDiv = '<div class="card-link position-absolute bottom-0 end-0">' + deleteActionView + likeActionView + '</div>';
 
         const liDiv = '<div class="card-body p-2 mb-2">';
-        const content = '<p id="id-message-' + retroItem.id + '" class="truncate-overflow card-text ' + contentTextColor + '" onclick="showRetroMessage(\'' + retroItem.id + '\',\'' + item.message + '\',\'' + cardType + '\',\'' + textColor + '\')" style="max-height: 80px;">' + item.message + '</p>';
+        const content = '<p id="id-message-' + retroItem.id + '" class="truncate-overflow card-text ' + contentTextColor + '" onclick="showRetroMessage(\'' + retroItem.id + '\',\'' + escape(item.message) + '\',\'' + cardType + '\',\'' + textColor + '\')" style="max-height: 80px;">' + item.message + '</p>';
         const action = liDiv + content + actionDiv + '</div>';
 
         const li = document.createElement("li");
@@ -403,19 +401,19 @@
 
     function updateLiAsReaded(id) {
         document.getElementById("id-message-" + id).setAttribute("class", "truncate-overflow card-text text-dark");
-        document.getElementById("id-ic-like-" + id).setAttribute("class", "bi bi-hand-thumbs-up-fill text-dark");
+        document.getElementById("id-ic-like-" + id).setAttribute("class", "bi bi-hand-thumbs-up text-dark");
         document.getElementById("id-like-" + id).setAttribute("class", "btn btn-sm text-dark");
 
         let deleteView = document.getElementById("id-ic-delete-" + id);
         if (deleteView) {
-            deleteView.setAttribute("class", "bi bi-trash-fill text-dark");
+            deleteView.setAttribute("class", "bi bi-trash3 text-dark");
         }
 
         document.getElementById(id).setAttribute("class", "row card shadow-sm mt-2 done-card bg-opacity-25")
     }
 
     function updateLikeCount(id, likeCount, contentTextColor) {
-        document.getElementById("id-like-" + id).innerHTML = '<i id="id-ic-like-' + id + '" class="bi bi-hand-thumbs-up-fill ' + contentTextColor + '"></i> ' + likeCount;
+        document.getElementById("id-like-" + id).innerHTML = '<i id="id-ic-like-' + id + '" class="bi bi-hand-thumbs-up ' + contentTextColor + '"></i> ' + likeCount;
     }
 
     function deleteRetroItem(ulId, id, cardType) {
@@ -430,7 +428,7 @@
 
         google.script.run
             .withSuccessHandler(function (lCount) {
-                likeButton.innerHTML = '<i id="id-ic-like-' + id + '" class="bi bi-hand-thumbs-up-fill ' + contentTextColor + '"></i> ' + lCount;
+                likeButton.innerHTML = '<i id="id-ic-like-' + id + '" class="bi bi-hand-thumbs-up ' + contentTextColor + '"></i> ' + lCount;
                 likeButton.removeAttribute("disabled");
             })
             .likeRetroItem(id, cardType);
@@ -443,6 +441,13 @@
 
         modelRetroId.value = id;
         modelRetroItemType.value = cardType;
+
+        var btnColor = "btn-outline-dark";
+        if(textColor == 'text-light') {
+            btnColor = "btn-outline-light";
+        }
+        retroMessageCancelBtn.setAttribute("class", "btn btn-sm " + btnColor);
+        retroMessageDoneBtn.setAttribute("class", "btn btn-sm " + btnColor);
 
         retroModel.show();
     }
@@ -487,7 +492,39 @@
     }
 
     function getUsername() {
-        return "username"; //userNameText.value.toLowerCase();
+        return userNameText.value.toLowerCase();
+    }
+
+    function showStatus(rowNum) {
+        console.log(rowNum);
+    }
+
+    function escape(s) {
+        return ('' + s)
+          .replace(/\\/g, '\\\\')
+          .replace(/\t/g, '\\t')
+          .replace(/\n/g, '\\n')
+          .replace(/\u00A0/g, '\\u00A0')
+          .replace(/&/g, '\\x26')
+          .replace(/'/g, '\\x27')
+          .replace(/"/g, '\\x22')
+          .replace(/</g, '\\x3C')
+          .replace(/>/g, '\\x3E')
+          .trim();
+    }
+
+    function unescape(s) {
+        s = ('' + s)
+        .replace(/\\x3E/g, '>')
+        .replace(/\\x3C/g, '<')
+        .replace(/\\x22/g, '"')
+        .replace(/\\x27/g, "'")
+        .replace(/\\x26/g, '&')
+        .replace(/\\u00A0/g, '\u00A0')
+        .replace(/\\n/g, '\n')
+        .replace(/\\t/g, '\t');
+
+        return s.replace(/\\\\/g, '\\');
     }
 
 </script>

@@ -66,16 +66,14 @@ function getPrevActionMessages() {
 }
 
 function getPreviousRetroboardList() {
-    return getSpreadSheet().getSheets()
-        .filter(function (t, index) {
-            return index >= 2;
-        })
+    return getSpreadSheet().getSheets().reverse()
         .map(function (e, index) {
             return {
                 name: e.getName(),
                 id: "sheet-" + index
             };
-        });
+        })
+        .slice(0, -2);
 }
 
 function getMessagesList(username, content) {

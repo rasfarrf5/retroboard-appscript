@@ -6,7 +6,7 @@
     <base target="_top">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?!= include("ui/common/css-support"); ?>
 </head>
@@ -15,10 +15,10 @@
 <main>
     <nav class="navbar fixed-top bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand">
-                <img src="<?= companyLogo ?>" alt="Logo"
-                     width="24" height="24" class="d-inline-block align-text-top">
-                <?= title ?><span class="navbar-text"> - Retrospective</span>
+            <a class="navbar-brand align-middle">
+                <img src="<?= companyLogo ?>" alt="Logo" height="32" class="d-inline-block">
+                <?= title ?>
+                <span class="navbar-text"> - Retrospective</span>
             </a>
             <div class="d-flex">
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
@@ -193,15 +193,18 @@
 
 <!-- Start: Retro Open Card Model -->
 <div class="modal fade" id="id-retro-item-detail-model" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div id="id-retro-model-card" class="modal-content">
-            <div class="modal-body">
+            <div class="modal-body border-0">
                 <input id="id-model-retro-item" type="hidden"/>
                 <input id="id-model-retro-item-type" type="hidden"/>
-                <h4 id="id-retro-model-message" class="card-text"></h4>
+                <div class="text-break">
+                  <h4 id="id-retro-model-message" class="card-text"></h4>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button id="id-retro-model-done-btn" type="button" class="btn btn-light">DONE</button>
+            <div class="modal-footer border-0">
+                <button id="id-retro-model-cancel-btn" type="button" class="btn btn-outline-dark btn-sm" data-bs-dismiss="modal">CANCEL</button>
+                <button id="id-retro-model-done-btn" type="button" class="btn btn-success btn-sm">DONE</button>
             </div>
         </div>
     </div>
@@ -230,7 +233,7 @@
         <div class="modal-content text-center">
             <div class="modal-body">
                 <div class="d-flex align-items-center">
-                    <strong>Updatint Retro Title...</strong>
+                    <strong>Update Retro Title...</strong>
                     <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
                 </div>
             </div>

@@ -1,12 +1,22 @@
 <style>
-    body {
+    main {
+        flex: 1 0 auto;
+        overflow: auto;
+    }
+
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+
+    .wrapper {
+        height: 100%;
         display: flex;
-        min-height: 100vh;
         flex-direction: column;
     }
 
-    main {
-        flex: 1 0 auto;
+    .content {
+        flex: 1;
         overflow: auto;
     }
 

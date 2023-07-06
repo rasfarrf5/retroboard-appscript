@@ -10,38 +10,44 @@
 </head>
 
 <body class="position-relative">
-<nav class="navbar fixed-top bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand">
-            <img src="<?= companyLogo ?>" alt="Logo"
-                 width="60" height="24" class="d-inline-block align-text-top">
-            <span class="navbar-text"> Retrospective</span>
-        </a>
-    </div>
-</nav>
-<br/>
-<br/>
-<div class="container text-center">
+<div class="wrapper">
+    <nav class="navbar fixed-top bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">
+                <img src="<?= companyLogo ?>" alt="Logo"
+                     height="24" class="d-inline-block align-text-top">
+                <span class="navbar-text"> Retrospective</span>
+            </a>
+        </div>
+    </nav>
     <br/>
     <br/>
-    <input id="id-username-text" type="hidden" value="<?= username ?>"/>
+    <div class="content">
+        <div style="height:800px;">
+            <div class="container text-center">
+                <br/>
+                <br/>
+                <input id="id-username-text" type="hidden" value="<?= username ?>"/>
 
-    <div class="text-center">
-        <img src="<?= completedLogo ?>" alt="Thank You" width="400" height="400">
-    </div>
+                <div class="text-center">
+                    <img src="<?= completedLogo ?>" alt="Thank You" width="400" height="400">
+                </div>
 
-    <h3><?= username ?></h3>
-</div>
-
-<footer class="footer mt-auto">
-    <div class="col text-bg-success bg-opacity-10 py-3">
-        <div class="text-center">
-            <p class="text-secondary">All content posted here are private and confidential.
-                <br/>© 2022 Copyright - <?= companyName ?>
-            </p>
+                <h3><?= username ?></h3>
+            </div>
         </div>
     </div>
-</footer>
+
+    <div class="footer">
+        <div class="col text-bg-success bg-opacity-10 py-1">
+            <div class="text-center">
+                <p class="text-secondary">All content posted here are private and confidential.
+                    <br/>© 2022 Copyright - <?= companyName ?>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 <?!= include("ui/common/js-support"); ?>

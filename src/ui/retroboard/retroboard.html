@@ -14,10 +14,10 @@
 <div class="wrapper">
     <nav class="navbar fixed-top bg-light header">
         <div class="container-fluid">
-            <a class="navbar-brand align-middle">
-                <img src="<?= companyLogo ?>" alt="Logo" height="32" class="d-inline-block">
-                <?= title ?>
-                <span class="navbar-text"> - Retrospective</span>
+            <a class="navbar-brand">
+                <img src="<?= companyLogo ?>" alt="Logo" height="32" class="d-inline-block align-middle">
+                <span class="align-middle"><?= title ?></span>
+                <span class="navbar-text align-middle"> - Retrospective</span>
             </a>
             <div class="d-flex">
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
@@ -231,10 +231,10 @@
      aria-labelledby="modelLabelUpdateTitleConfirmation" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-body">
+            <div class="modal-body border-0">
                 Are you sure to update the retro title?
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer border-0">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <button id="id-btn-update-retro" type="button" class="btn btn-danger" data-bs-toggle="modal"
                         data-bs-target="#id-model-retro-title-update">Update
@@ -261,10 +261,10 @@
      aria-labelledby="modelLabelCompleteConfirmation" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-body">
+            <div class="modal-body border-0">
                 Do you want to complete the retro without checking previous action items?
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer border-0">
                 <button id="id-btn-complete-retro" type="button" class="btn btn-danger" data-bs-toggle="modal"
                         data-bs-target="#id-model-retro-completing">Complete Retro
                 </button>

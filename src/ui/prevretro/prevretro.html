@@ -15,8 +15,9 @@
     <nav class="navbar fixed-top bg-light">
         <div class="container-fluid">
             <a class="navbar-brand">
-                <img src="<?= companyLogo ?>" alt="Logo" height="32" class="d-inline-block">
-                <?= title ?><span class="navbar-text"> - Previous Retroboard</span>
+                <img src="<?= companyLogo ?>" alt="Logo" height="32" class="d-inline-block align-middle">
+                <span class="align-middle"><?= title ?></span>
+                <span class="navbar-text align-middle"> - Retrospective</span>
             </a>
             <div class="d-flex">
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
@@ -137,7 +138,7 @@
 
 <!-- Start: Retro Open Card Model -->
 <div class="modal fade" id="id-retro-item-detail-model" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div id="id-retro-model-card" class="modal-content">
             <div class="modal-body">
                 <input id="id-model-retro-item" type="hidden"/>

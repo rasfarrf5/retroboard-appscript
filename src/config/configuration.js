@@ -2,10 +2,10 @@
 var spreadSheet = SpreadsheetApp.openByUrl("YOUR_GOOGLE_SHEET_URL")
 
 // Retroboard Main Sheet
-var retroSheet = spreadSheet.getSheetByName("retrospective");
+const retroSheet = spreadSheet.getSheetByName("retrospective");
 
 // Configuration Sheet
-var configSheet = spreadSheet.getSheetByName("config");
+const configSheet = spreadSheet.getSheetByName("config");
 
 function getRetroSheet() {
     return retroSheet;

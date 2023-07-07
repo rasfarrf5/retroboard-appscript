@@ -11,7 +11,7 @@ function getRetroTitle() {
     const title = configSheet.getRange("A2").getValue();
 
     if (title === "") {
-        return "UNKNOWN";
+        return "!";
     }
     return title;
 }
@@ -28,30 +28,18 @@ function setRetroTitle(title) {
 
 function getCompanyName() {
     const configSheet = getConfigSheet();
-    const companyName = configSheet.getRange("B2").getValue();
 
-    if (companyName === "") {
-        return "UNKNOWN";
-    }
-    return companyName;
+    return configSheet.getRange("B2").getValue();
 }
 
 function getCompanyLogo() {
     const configSheet = getConfigSheet();
-    const companyLogo = configSheet.getRange("C2").getValue();
 
-    if (companyLogo === "") {
-        return "UNKNOWN";
-    }
-    return companyLogo;
+    return configSheet.getRange("C2").getValue();
 }
 
 function getCompletedLogo() {
     const configSheet = getConfigSheet();
-    const completedGif = configSheet.getRange("D2").getValue();
 
-    if (completedGif === "") {
-        return "https://cliply.co/wp-content/uploads/2021/08/472108170_THANK_YOU_STICKER_400px.gif";
-    }
-    return completedGif;
+    return configSheet.getRange("D2").getValue();
 }

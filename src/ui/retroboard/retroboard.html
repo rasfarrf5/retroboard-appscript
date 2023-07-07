@@ -11,6 +11,7 @@
     <?!= include("ui/common/css-support"); ?>
 </head>
 
+<body>
 <div class="wrapper">
     <nav class="navbar fixed-top bg-light header">
         <div class="container-fluid">
@@ -175,11 +176,11 @@
     </div>
     <div class="footer">
         <br/>
-        <div class="row align-baseline">
+        <div class="row align-middle">
             <div class="col"></div>
             <div class="col">
-                <div class="d-grid mx-auto mb-3 align-middle">
-                    <button class="btn btn-primary btn-lg text-light me-2" type="button"
+                <div class="d-grid mx-auto mb-3">
+                    <button class="btn btn-outline-primary btn-lg me-2" type="button"
                             data-bs-toggle="modal" data-bs-target="#id-model-retro-complete-confirmation">Complete Retro
                     </button>
                 </div>
@@ -195,11 +196,11 @@
                 </ul>
             </div>
         </div>
-        <div class="col text-bg-success bg-opacity-10 py-1">
+        <div class="col text-bg-success bg-opacity-10 py-2">
             <div class="text-center">
-                <p class="text-secondary">All content posted here are private and confidential.
-                    <br/>© 2022 Copyright - <?= companyName ?>
-                </p>
+                <span class="text-secondary">
+                    All content posted here are private and confidential.<br/>© 2022 Copyright - <?= companyName ?>
+                </span>
             </div>
         </div>
     </div>

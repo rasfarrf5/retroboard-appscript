@@ -16,6 +16,16 @@ function completeRetro(uncheckedActionItems) {
     return true;
 }
 
+// Delete previous retroboard sheet
+function deletePreviousRetroboard(selectedBoards) {
+    selectedBoards.forEach(function (value, i) {
+        let sheet = spreadSheet.getSheetByName(value);
+        spreadSheet.deleteSheet(sheet);
+    });
+
+    return ScriptApp.getService().getUrl();
+}
+
 function completeRetroWithoutClearPrevAction() {
     const retroSheet = getRetroSheet();
 

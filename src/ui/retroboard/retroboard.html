@@ -39,7 +39,7 @@
                         <form class="d-flex" role="search">
                             <input id="id-retro-board-title-text" class="form-control me-2" type="search"
                                    placeholder="Retroboard Title" aria-label="Search">
-                            <button id="id-retro-board-title-btn" class="btn btn-outline-danger" type="button"
+                            <button id="id-retro-board-title-btn" class="btn btn-outline-primary" type="button"
                                     data-bs-toggle="modal"
                                     data-bs-target="#id-model-retro-title-confirmation">Update
                             </button>
@@ -56,9 +56,22 @@
                         <div class="col d-flex">
                             <h5 class="offcanvas-title" id="if-navtitle-prev-retroboard">Previous Retroboard</h5>
                         </div>
-                        <br>
+                        <form class="col d-flex form-check form-switch p-3">
+                            <div class="col-md-auto">
+                                <label class="nav-link active">Toggle Delete Prev Retroboard</label>
+                            </div>
+                            <div class="col"></div>
+                            <div class="col-md-auto">
+                                <input class="form-check-input" type="checkbox" id="id-toggle-delete-prev-retroboard">
+                            </div>
+                        </form>
                         <div class="col d-flex card">
+                            <button id="id-delete-selected-retro-btn" class="btn btn-danger hidden" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#id-model-retro-delete-confirmation">
+                                Delete Selected Retroboard
+                            </button>
                             <ul class="list-group list-group-flush" id="id-ul-prev-retroboards"></ul>
+                            <ul class="list-group hidden" id="id-ul-prev-retroboards-check"></ul>
                         </div>
                         <div id="id-loading-prevretroboard-indicator" class="text-center">
                             <div class="spinner-border m-5" role="status">
@@ -281,6 +294,37 @@
             <div class="modal-body">
                 <div class="d-flex align-items-center">
                     <strong>Completing Retro...</strong>
+                    <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="id-model-retro-delete-confirmation" tabindex="-1"
+     aria-labelledby="modelLabelUpdateTitleConfirmation" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body border-0">
+                Are you sure to delete selected retroboards?
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button id="id-confirm-delete-retro-btn" type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#id-model-retro-delete-loading">Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="id-model-retro-delete-loading" aria-hidden="true"
+     aria-labelledby="modelLabelTitleUpdateLoading"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+            <div class="modal-body">
+                <div class="d-flex align-items-center">
+                    <strong>Deleting previous retroboards...</strong>
                     <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
                 </div>
             </div>

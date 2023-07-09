@@ -9,6 +9,8 @@
     document.getElementById("id-retro-model-done-btn").addEventListener("click", onDoneClicked);
     document.getElementById("id-btn-update-retro").addEventListener("click", onUpdateTitleClicked);
     document.getElementById("id-btn-complete-retro").addEventListener("click", doOnCompleteRetro);
+    document.getElementById("id-toggle-delete-prev-retroboard").addEventListener("click", toggleDeletePrevRetroboard);
+    document.getElementById("id-confirm-delete-retro-btn").addEventListener("click", onDeletePrevRetroboardClicked);
 
     const userNameText = document.getElementById("id-username-text");
     const prevRetroboardUrl = document.getElementById("id-prev-retroboard-url");
@@ -24,6 +26,7 @@
     const retroTitleText = document.getElementById("id-retro-board-title-text");
     const retroMessageCancelBtn = document.getElementById("id-retro-model-cancel-btn");
     const retroMessageDoneBtn = document.getElementById("id-retro-model-done-btn");
+    const deleteSelectedRetroBtn = document.getElementById("id-delete-selected-retro-btn");
 
     retroTitleText.addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
@@ -38,6 +41,7 @@
     const ulIdeas = document.getElementById("id-ul-ideas-items");
     const ulThanks = document.getElementById("id-ul-thanks-items");
     const ulPrevRetroboards = document.getElementById("id-ul-prev-retroboards");
+    const ulCheckPrevRetroboards = document.getElementById("id-ul-prev-retroboards-check");
 
     // Model
     const modelDialogCard = document.getElementById("id-retro-model-card");
@@ -47,6 +51,7 @@
 
     let retroModel;
     let autoRefreshTimer;
+    let isDeletePrevRetroEnabled = false;
 
     document.addEventListener('DOMContentLoaded', function () {
         retroModel = new bootstrap.Modal('#id-retro-item-detail-model');
@@ -140,6 +145,12 @@
             li.id = retroItem.id;
             li.setAttribute("class", "list-group-item list-group-item-action");
             ulPrevRetroboards.appendChild(li);
+
+            const checkedLi = document.createElement("li");
+            checkedLi.innerHTML = '<input class="form-check-input me-1 delete-prev-retroboard" type="checkbox" value="' + retroItem.name + '" id="prev-retro-check-' + retroItem.id + '"><label class="form-check-label" for="prev-retro-check-' + retroItem.id + '">' + retroItem.name + '</label>';
+            checkedLi.id = retroItem.id;
+            checkedLi.setAttribute("class", "list-group-item");
+            ulCheckPrevRetroboards.appendChild(checkedLi);
         }
 
         togglePrevRetroLoadingIndicator(false);
@@ -254,6 +265,30 @@
         google.script.run.withSuccessHandler(function (_) {
             window.open(completeRetroUrl.value, '_top');
         }).completeRetroWithoutClearPrevAction();
+    }
+
+    function toggleDeletePrevRetroboard() {
+        isDeletePrevRetroEnabled = !isDeletePrevRetroEnabled;
+        if (isDeletePrevRetroEnabled) {
+            ulPrevRetroboards.className = "list-group list-group-flush hidden";
+            ulCheckPrevRetroboards.className = "list-group";
+            deleteSelectedRetroBtn.classList = "btn btn-danger";
+        } else {
+            ulPrevRetroboards.className = "list-group list-group-flush";
+            ulCheckPrevRetroboards.className = "list-group hidden";
+            deleteSelectedRetroBtn.classList = "btn btn-danger hidden";
+        }
+    }
+
+    function onDeletePrevRetroboardClicked() {
+        let allCheckbox = document.querySelectorAll('.delete-prev-retroboard');
+        let selectedItems = Array.from(allCheckbox)
+            .filter(checkbox => checkbox.checked === true)
+            .map(checkbox => checkbox.value)
+
+        google.script.run.withSuccessHandler(function (url) {
+            window.open(url, '_top');
+        }).deletePreviousRetroboard(selectedItems);
     }
 
     function isListNotAdded(id) {

@@ -42,15 +42,15 @@ function completeRetroWithoutClearPrevAction() {
 
 // Delete retro item
 function deleteRetroItem(id, cardType) {
-    if (cardType === "went-well") {
+    if (cardType == "went-well") {
         return deleteMessageById("A", "B", id);
-    } else if (cardType === "to-improve") {
+    } else if (cardType == "to-improve") {
         return deleteMessageById("C", "D", id);
-    } else if (cardType === "action-items") {
+    } else if (cardType == "action-items") {
         return deleteMessageById("E", "F", id);
-    } else if (cardType === "idea") {
+    } else if (cardType == "idea") {
         return deleteMessageById("G", "H", id);
-    } else if (cardType === "thanks") {
+    } else if (cardType == "thanks") {
         return deleteMessageById("I", "J", id);
     }
     return false;
@@ -58,15 +58,15 @@ function deleteRetroItem(id, cardType) {
 
 // Like Retro Item
 function likeRetroItem(id, cardType) {
-    if (cardType === "went-well") {
+    if (cardType == "went-well") {
         return likeMessageById("A", "B", id);
-    } else if (cardType === "to-improve") {
+    } else if (cardType == "to-improve") {
         return likeMessageById("C", "D", id);
-    } else if (cardType === "action-items") {
+    } else if (cardType == "action-items") {
         return likeMessageById("E", "F", id);
-    } else if (cardType === "idea") {
+    } else if (cardType == "idea") {
         return likeMessageById("G", "H", id);
-    } else if (cardType === "thanks") {
+    } else if (cardType == "thanks") {
         return likeMessageById("I", "J", id);
     }
     return 0;
@@ -74,15 +74,15 @@ function likeRetroItem(id, cardType) {
 
 // Like Retro Item
 function readRetroItem(id, cardType) {
-    if (cardType === "went-well") {
+    if (cardType == "went-well") {
         return readMessageById("A", "B", id);
-    } else if (cardType === "to-improve") {
+    } else if (cardType == "to-improve") {
         return readMessageById("C", "D", id);
-    } else if (cardType === "action-items") {
+    } else if (cardType == "action-items") {
         return readMessageById("E", "F", id);
-    } else if (cardType === "idea") {
+    } else if (cardType == "idea") {
         return readMessageById("G", "H", id);
-    } else if (cardType === "thanks") {
+    } else if (cardType == "thanks") {
         return readMessageById("I", "J", id);
     }
     return false;

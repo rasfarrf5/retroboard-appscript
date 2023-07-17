@@ -10,7 +10,7 @@ function getRetroTitle() {
     const configSheet = getConfigSheet();
     const title = configSheet.getRange("A2").getValue();
 
-    if (title === "") {
+    if (title == "") {
         return "!";
     }
     return title;

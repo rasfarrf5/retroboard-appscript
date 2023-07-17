@@ -1,7 +1,7 @@
 function getWentWellMessages(username, sheetName) {
     let content;
 
-    if (sheetName === "") {
+    if (sheetName == "") {
         content = retroSheet.getRange("A2:B30").getValues();
     } else {
         content = getSpreadSheet().getSheetByName(sheetName).getRange("A2:B30").getValues();
@@ -13,7 +13,7 @@ function getWentWellMessages(username, sheetName) {
 function getToImproveMessages(username, sheetName) {
     let content;
 
-    if (sheetName === "") {
+    if (sheetName == "") {
         content = retroSheet.getRange("C2:D30").getValues();
     } else {
         content = getSpreadSheet().getSheetByName(sheetName).getRange("C2:D30").getValues();
@@ -25,7 +25,7 @@ function getToImproveMessages(username, sheetName) {
 function getActionItemsMessages(username, sheetName) {
     let content;
 
-    if (sheetName === "") {
+    if (sheetName == "") {
         content = retroSheet.getRange("E2:F30").getValues();
     } else {
         content = getSpreadSheet().getSheetByName(sheetName).getRange("E2:F30").getValues();
@@ -37,7 +37,7 @@ function getActionItemsMessages(username, sheetName) {
 function getIdeasMessages(username, sheetName) {
     let content;
 
-    if (sheetName === "") {
+    if (sheetName == "") {
         content = retroSheet.getRange("G2:H30").getValues();
     } else {
         content = getSpreadSheet().getSheetByName(sheetName).getRange("G2:H30").getValues();
@@ -49,7 +49,7 @@ function getIdeasMessages(username, sheetName) {
 function getThanksMessages(username, sheetName) {
     let content;
 
-    if (sheetName === "") {
+    if (sheetName == "") {
         content = retroSheet.getRange("I2:J30").getValues();
     } else {
         content = getSpreadSheet().getSheetByName(sheetName).getRange("I2:J30").getValues();

@@ -26,6 +26,7 @@ function loadRetroboardPage(userName) {
     htmlService.prevActionUrl = ScriptApp.getService().getUrl() + "?v=prevactions";
     htmlService.prevRetroboardUrl = ScriptApp.getService().getUrl() + "?v=prevretro";
     htmlService.completedUrl = ScriptApp.getService().getUrl() + "?v=completed";
+    htmlService.feedback = getFeedbackUrl();
 
     return htmlService.evaluate().setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }

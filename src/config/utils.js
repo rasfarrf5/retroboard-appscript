@@ -43,3 +43,9 @@ function getCompletedLogo() {
 
     return configSheet.getRange("D2").getValue();
 }
+
+function getFeedbackUrl() {
+    const configSheet = getConfigSheet();
+
+    return configSheet.getRange("E2").getValue();
+}

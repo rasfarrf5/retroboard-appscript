@@ -31,7 +31,7 @@
                     <div class="offcanvas-header">
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
-                    <div class="offcanvas-body">
+                    <div class="offcanvas-body w-100 h-100 mb-auto overflow-y-auto p-3">
                         <div class="col d-flex">
                             <h5 class="offcanvas-title" id="if-navtitle-settings">Settings</h5>
                         </div>
@@ -66,7 +66,8 @@
                             </div>
                         </form>
                         <div class="col d-flex card">
-                            <button id="id-delete-selected-retro-btn" class="btn btn-danger hidden" type="button" data-bs-toggle="modal"
+                            <button id="id-delete-selected-retro-btn" class="btn btn-danger hidden" type="button"
+                                    data-bs-toggle="modal"
                                     data-bs-target="#id-model-retro-delete-confirmation">
                                 Delete Selected Retroboard
                             </button>
@@ -77,6 +78,11 @@
                             <div class="spinner-border m-5" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
+                        </div>
+                    </div>
+                    <div style="max-height: 60px; min-height: 60px" class="d-flex justify-content-center order-2 w-100">
+                        <div class="align-self-center">
+                            <a class="btn btn-outline-success" href="<?= feedback ?>">Submit Your Feedback</a>
                         </div>
                     </div>
                 </div>

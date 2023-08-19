@@ -88,6 +88,13 @@ function readRetroItem(id, cardType) {
     return false;
 }
 
+
+function addCommentRetroItem(id, cardType, comment) {
+    if (cardType == "action-items") {
+        return updateCommentById("E", "F", id, comment);
+    }
+}
+
 function deleteMessageById(columnId, contentColId, id) {
     const content = retroSheet.getRange(columnId + "2:" + columnId);
 
@@ -145,6 +152,32 @@ function readMessageById(columnId, contentColId, id) {
         const item = JSON.parse(jsonData);
         item.isRead = true;
 
+        retroSheet.getRange(contentColId + index).setValue(JSON.stringify(item));
+        return true;
+    }
+
+    return false;
+}
+
+function updateCommentById(columnId, contentColId, id, commentText) {
+    const content = retroSheet.getRange(columnId + "2:" + columnId);
+
+    const data = content.getValues()
+        .filter(function (t) {
+            return t[0] !== "";
+        });
+
+    const rowIndex = data.flat().indexOf(id);
+    if (rowIndex !== -1) {
+        const index = rowIndex + 2;
+        const jsonData = retroSheet.getRange(contentColId + index).getValue();
+
+        const item = JSON.parse(jsonData);
+        if (item.comments === undefined) {
+            item.comments = [commentText];
+        } else {
+            item.comments.push(commentText);
+        }
         retroSheet.getRange(contentColId + index).setValue(JSON.stringify(item));
         return true;
     }

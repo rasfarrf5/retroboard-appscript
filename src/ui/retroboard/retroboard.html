@@ -21,6 +21,7 @@
                 <span class="navbar-text align-middle"> - Retrospective</span>
             </a>
             <div class="d-flex">
+                <button class="btn btn-outline-success me-2" type="submit">Submit Feedback</button>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasNavbar"
                         aria-controls="offcanvasNavbar">
@@ -71,7 +72,7 @@
                                     data-bs-target="#id-model-retro-delete-confirmation">
                                 Delete Selected Retroboard
                             </button>
-                            <ul class="list-group list-group-flush" id="id-ul-prev-retroboards"></ul>
+                            <ul class="list-group" id="id-ul-prev-retroboards"></ul>
                             <ul class="list-group hidden" id="id-ul-prev-retroboards-check"></ul>
                         </div>
                         <div id="id-loading-prevretroboard-indicator" class="text-center">
@@ -128,8 +129,7 @@
                         <div class="col p-3 retro-item-card">
                             <div class="row">
                                 <div class="card shadow-sm">
-                        <textarea id="id-action-items-text"
-                                  placeholder="✅ Action Items"></textarea>
+                                    <textarea id="id-action-items-text" placeholder="✅ Action Items"></textarea>
                                     <button id="id-action-items-btn" type="button"
                                             class="btn btn-primary btn-sm add-item-btn border-0 position-absolute bottom-0 end-0">
                                         Add
@@ -230,12 +230,18 @@
 <div class="modal fade" id="id-retro-item-detail-model" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div id="id-retro-model-card" class="modal-content">
-            <div class="modal-body border-0">
-                <input id="id-model-retro-item" type="hidden"/>
-                <input id="id-model-retro-item-type" type="hidden"/>
-                <div class="text-break">
-                    <h4 id="id-retro-model-message" class="card-text"></h4>
+            <input id="id-model-retro-item" type="hidden"/>
+            <input id="id-model-retro-item-type" type="hidden"/>
+            <div class="modal-header border-0 text-break">
+                <h3 id="id-retro-model-message" class="card-text"></h3>
+            </div>
+            <div class="modal-body border-0" id="id-retro-item-comment-section">
+                <div class="input-group mb-3">
+                    <input id="id-comment-add-content-txt" type="text" class="form-control" placeholder="Comment"
+                           aria-label="Comment" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-light" type="button" id="id-comment-add-btn">Add</button>
                 </div>
+                <ul id="id-comment-list" class="list-group d-none"></ul>
             </div>
             <div class="modal-footer border-0">
                 <button id="id-retro-model-cancel-btn" type="button" class="btn btn-outline-dark btn-sm"

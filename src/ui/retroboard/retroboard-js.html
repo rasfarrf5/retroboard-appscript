@@ -11,6 +11,7 @@
     document.getElementById("id-btn-complete-retro").addEventListener("click", doOnCompleteRetro);
     document.getElementById("id-toggle-delete-prev-retroboard").addEventListener("click", toggleDeletePrevRetroboard);
     document.getElementById("id-confirm-delete-retro-btn").addEventListener("click", onDeletePrevRetroboardClicked);
+    document.getElementById("id-comment-add-btn").addEventListener("click", onCommentAddClicked);
 
     const userNameText = document.getElementById("id-username-text");
     const prevRetroboardUrl = document.getElementById("id-prev-retroboard-url");
@@ -24,9 +25,12 @@
     const ideaText = document.getElementById("id-idea-text");
     const thanksText = document.getElementById("id-thanks-text");
     const retroTitleText = document.getElementById("id-retro-board-title-text");
+    const retroCommentText = document.getElementById("id-comment-add-content-txt");
     const retroMessageCancelBtn = document.getElementById("id-retro-model-cancel-btn");
     const retroMessageDoneBtn = document.getElementById("id-retro-model-done-btn");
     const deleteSelectedRetroBtn = document.getElementById("id-delete-selected-retro-btn");
+    const commentSectionForActionItem = document.getElementById("id-retro-item-comment-section");
+    const commentList = document.getElementById("id-comment-list");
 
     retroTitleText.addEventListener("keypress", function (event) {
         if (event.key == "Enter") {
@@ -291,6 +295,16 @@
         }).deletePreviousRetroboard(selectedItems);
     }
 
+    function onCommentAddClicked() {
+        const comment = retroCommentText.value.trim();
+        if (comment !== "") {
+            addComment(comment);
+            retroCommentText.value = "";
+
+            google.script.run.addCommentRetroItem(modelRetroId.value, modelRetroItemType.value, comment);
+        }
+    }
+
     function isListNotAdded(id) {
         return document.getElementById(id) == null;
     }
@@ -407,6 +421,13 @@
         }
     }
 
+    function addComment(comment) {
+        const li = document.createElement("li");
+        li.innerHTML = comment
+        li.setAttribute("class", "list-group-item bg-transparent text-white");
+        commentList.appendChild(li);
+    }
+
     function createLiElementForUlNew(ulElement, retroItem, cardType, textColor, isLocal) {
         let item;
         if (isLocal) {
@@ -422,6 +443,11 @@
             contentTextColor = "text-dark";
         }
 
+        let commentContent = "";
+        if (item.comments !== undefined) {
+            commentContent = item.comments.toString();
+        }
+
         let deleteActionView = '';
         if (retroItem.showDelete) {
             const deleteIcon = '<i id="id-ic-delete-' + retroItem.id + '" class="bi bi-trash3 ' + contentTextColor + '"></i>';
@@ -432,7 +458,7 @@
         const actionDiv = '<div class="card-link position-absolute bottom-0 end-0">' + deleteActionView + likeActionView + '</div>';
 
         const liDiv = '<div class="card-body p-2 mb-2">';
-        const content = '<p id="id-message-' + retroItem.id + '" class="truncate-overflow card-text ' + contentTextColor + '" onclick="showRetroMessage(\'' + retroItem.id + '\',\'' + escape(item.message) + '\',\'' + cardType + '\',\'' + textColor + '\')" style="max-height: 80px;">' + item.message + '</p>';
+        const content = '<p id="id-message-' + retroItem.id + '" class="truncate-overflow card-text ' + contentTextColor + '" onclick="showRetroMessage(\'' + retroItem.id + '\',\'' + escape(item.message) + '\',\'' + cardType + '\',\'' + commentContent + '\',\'' + textColor + '\')" style="max-height: 80px;">' + item.message + '</p>';
         const action = liDiv + content + actionDiv + '</div>';
 
         const li = document.createElement("li");
@@ -477,16 +503,31 @@
             .likeRetroItem(id, cardType);
     }
 
-    function showRetroMessage(id, message, cardType, textColor) {
+    function showRetroMessage(id, message, cardType, commentContent, textColor) {
         modelText.innerHTML = message;
         modelText.setAttribute("class", textColor);
         modelDialogCard.setAttribute("class", cardType + "-card modal-content");
 
         modelRetroId.value = id;
         modelRetroItemType.value = cardType;
+        if (cardType === 'action-items') {
+            commentList.innerHTML = "";
+            commentSectionForActionItem.setAttribute("class", "modal-body border-0");
+            let comments = commentContent.split(",");
+            if (commentContent !== "") {
+                commentList.setAttribute("class", "list-group");
+                for (let i = 0; i < comments.length; i++) {
+                    addComment(comments);
+                }
+            } else {
+                commentList.setAttribute("class", "list-group d-none");
+            }
+        } else {
+            commentSectionForActionItem.setAttribute("class", "modal-body border-0 d-none");
+        }
 
-        var btnColor = "btn-outline-dark";
-        if (textColor == 'text-light') {
+        let btnColor = "btn-outline-dark";
+        if (textColor === 'text-light') {
             btnColor = "btn-outline-light";
         }
         retroMessageCancelBtn.setAttribute("class", "btn btn-sm " + btnColor);

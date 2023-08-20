@@ -275,10 +275,10 @@
         isDeletePrevRetroEnabled = !isDeletePrevRetroEnabled;
         if (isDeletePrevRetroEnabled) {
             ulPrevRetroboards.className = "list-group hidden";
-            ulCheckPrevRetroboards.className = "list-group w-100";
+            ulCheckPrevRetroboards.className = "list-group w-100 hand-cursor";
             deleteSelectedRetroBtn.classList = "btn btn-danger w-100";
         } else {
-            ulPrevRetroboards.className = "list-group w-100";
+            ulPrevRetroboards.className = "list-group w-100 hand-cursor";
             ulCheckPrevRetroboards.className = "list-group hidden";
             deleteSelectedRetroBtn.classList = "btn btn-danger hidden";
         }
@@ -459,7 +459,7 @@
         const actionDiv = '<div class="card-link position-absolute bottom-0 end-0">' + deleteActionView + likeActionView + '</div>';
 
         const liDiv = '<div class="card-body p-2 mb-2">';
-        const content = '<p id="id-message-' + retroItem.id + '" class="truncate-overflow card-text ' + contentTextColor + '" onclick="showRetroMessage(\'' + retroItem.id + '\',\'' + escape(item.message) + '\',\'' + cardType + '\',\'' + commentContent + '\',\'' + textColor + '\')" style="max-height: 80px;">' + item.message + '</p>';
+        const content = '<p id="id-message-' + retroItem.id + '" class="truncate-overflow hand-cursor card-text ' + contentTextColor + '" onclick="showRetroMessage(\'' + retroItem.id + '\',\'' + escape(item.message) + '\',\'' + cardType + '\',\'' + commentContent + '\',\'' + textColor + '\')" style="max-height: 80px;">' + item.message + '</p>';
         const action = liDiv + content + actionDiv + '</div>';
 
         const li = document.createElement("li");

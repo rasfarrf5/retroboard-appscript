@@ -75,7 +75,7 @@
             const li = document.createElement("li");
             li.innerHTML = '<p id="id-prev-retroboard-' + retroItem.id + '" class="card-text" onclick="showPrevRetroboard(\'' + retroItem.name + '\')" style="max-height: 80px;">' + retroItem.name + '</p>';
             li.id = retroItem.id;
-            li.setAttribute("class", "list-group-item list-group-item-action");
+            li.setAttribute("class", "list-group-item hand-cursor list-group-item-action");
             ulPrevRetroboards.appendChild(li);
         }
 
@@ -102,7 +102,7 @@
         var actionDiv = '<div class="card-link position-absolute bottom-0 end-0">' + likeActionView + '</div>';
 
         var liDiv = '<div class="card-body p-2 mb-2">';
-        var content = '<p id="id-message-' + retroItem.id + '" class="truncate-overflow card-text text-wrap ' + contentTextColor + '" onclick="showRetroMessage(\'' + retroItem.id + '\',\'' + item.message + '\',\'' + cardType + '\',\'' + textColor + '\')" style="max-height: 80px;">' + item.message + '</p>';
+        var content = '<p id="id-message-' + retroItem.id + '" class="truncate-overflow hand-cursor card-text text-wrap ' + contentTextColor + '" onclick="showRetroMessage(\'' + retroItem.id + '\',\'' + item.message + '\',\'' + cardType + '\',\'' + textColor + '\')" style="max-height: 80px;">' + item.message + '</p>';
         const action = liDiv + content + actionDiv + '</div>';
 
         var li = document.createElement("li");

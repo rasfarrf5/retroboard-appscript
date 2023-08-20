@@ -224,6 +224,7 @@
                     createLiElementForUlNew(ulActionItems, retroItem, "action-items", "text-light", false);
                 } else {
                     updateLikeCount(retroItem.id, item.likeCount, "text-light");
+                    updateItemComment(retroItem.id, item.comments);
                 }
                 if (item.isRead) updateLiAsReaded(retroItem.id);
             } else {
@@ -313,6 +314,7 @@
     function onCommentAddClicked() {
         const comment = retroCommentText.value.trim();
         if (comment !== "") {
+            addOrUpdateCommentById(modelRetroId.value, comment);
             addComment(comment);
             retroCommentText.value = "";
 
@@ -436,14 +438,6 @@
         }
     }
 
-    function addComment(comment) {
-        const li = document.createElement("li");
-        li.innerHTML = '<i class="bi bi-chat-right-quote text-white me-2"></i>' + comment;
-        li.setAttribute("class", "list-group-item bg-transparent text-white");
-        commentList.appendChild(li);
-        commentList.setAttribute("class", "list-group");
-    }
-
     function createLiElementForUlNew(ulElement, retroItem, cardType, textColor, isLocal) {
         let item;
         if (isLocal) {
@@ -459,10 +453,7 @@
             contentTextColor = "text-dark";
         }
 
-        let commentContent = "";
-        if (item.comments !== undefined) {
-            commentContent = item.comments.toString();
-        }
+        updateItemComment(retroItem.id, item.comments);
 
         let deleteActionView = '';
         if (retroItem.showDelete) {
@@ -474,7 +465,7 @@
         const actionDiv = '<div class="card-link position-absolute bottom-0 end-0">' + deleteActionView + likeActionView + '</div>';
 
         const liDiv = '<div class="card-body p-2 mb-2">';
-        const content = '<p id="id-message-' + retroItem.id + '" class="truncate-overflow hand-cursor card-text ' + contentTextColor + '" onclick="showRetroMessage(\'' + retroItem.id + '\',\'' + escape(item.message) + '\',\'' + cardType + '\',\'' + commentContent + '\',\'' + textColor + '\')" style="max-height: 80px;">' + item.message + '</p>';
+        const content = '<p id="id-message-' + retroItem.id + '" class="truncate-overflow hand-cursor card-text ' + contentTextColor + '" onclick="showRetroMessage(\'' + retroItem.id + '\',\'' + escape(item.message) + '\',\'' + cardType + '\',\'' + textColor + '\')" style="max-height: 80px;">' + item.message + '</p>';
         const action = liDiv + content + actionDiv + '</div>';
 
         const li = document.createElement("li");
@@ -501,6 +492,14 @@
         document.getElementById("id-like-" + id).innerHTML = '<i id="id-ic-like-' + id + '" class="bi bi-hand-thumbs-up ' + contentTextColor + '"></i> ' + likeCount;
     }
 
+    function updateItemComment(id, comments) {
+        if (comments !== undefined) {
+            for (let c = 0; c < comments.length; c++) {
+                addOrUpdateCommentById(id, comments[c]);
+            }
+        }
+    }
+
     function deleteRetroItem(ulId, id, cardType) {
         google.script.run.deleteRetroItem(id, cardType);
 
@@ -519,7 +518,7 @@
             .likeRetroItem(id, cardType);
     }
 
-    function showRetroMessage(id, message, cardType, commentContent, textColor) {
+    function showRetroMessage(id, message, cardType, textColor) {
         modelText.innerHTML = message;
         modelText.setAttribute("class", textColor);
         modelDialogCard.setAttribute("class", cardType + "-card modal-content");
@@ -529,8 +528,9 @@
         if (cardType === 'action-items') {
             commentList.innerHTML = "";
             commentSectionForActionItem.setAttribute("class", "modal-body border-0");
-            let comments = commentContent.split(",");
-            if (commentContent !== "") {
+            let commentContent = actionItemCommentWithId[id];
+            if (commentContent !== undefined) {
+                let comments = commentContent.split(",");
                 commentList.setAttribute("class", "list-group");
                 for (let i = 0; i < comments.length; i++) {
                     addComment(comments[i]);
@@ -550,6 +550,28 @@
         retroMessageDoneBtn.setAttribute("class", "btn btn-sm " + btnColor);
 
         retroModel.show();
+    }
+
+    let actionItemCommentWithId = {};
+
+    function addOrUpdateCommentById(id, comment) {
+        console.log(id in actionItemCommentWithId);
+        if (id in actionItemCommentWithId) {
+            if (!actionItemCommentWithId[id].includes(comment)) {
+                actionItemCommentWithId[id] = actionItemCommentWithId[id] + "," + comment;
+            }
+        } else {
+            actionItemCommentWithId[id] = comment;
+        }
+    }
+
+    function addComment(comment) {
+        li = document.createElement("li");
+        li.innerHTML = '<i class="bi bi-chat-right-quote text-white me-2"></i>' + comment;
+        li.setAttribute("class", "list-group-item bg-transparent text-white");
+        li.id = comment;
+        commentList.appendChild(li);
+        commentList.setAttribute("class", "list-group");
     }
 
     function onDoneClicked() {

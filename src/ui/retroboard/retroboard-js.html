@@ -12,6 +12,7 @@
     document.getElementById("id-toggle-delete-prev-retroboard").addEventListener("click", toggleDeletePrevRetroboard);
     document.getElementById("id-confirm-delete-retro-btn").addEventListener("click", onDeletePrevRetroboardClicked);
     document.getElementById("id-comment-add-btn").addEventListener("click", onCommentAddClicked);
+    document.getElementById("id-retroboard-complete-retro-btn").addEventListener("click", onCompleteRetroboardClicked);
 
     const userNameText = document.getElementById("id-username-text");
     const prevRetroboardUrl = document.getElementById("id-prev-retroboard-url");
@@ -24,7 +25,8 @@
     const actionItemsText = document.getElementById("id-action-items-text");
     const ideaText = document.getElementById("id-idea-text");
     const thanksText = document.getElementById("id-thanks-text");
-    const retroTitleText = document.getElementById("id-retro-board-title-text");
+    const retroTitleEditText = document.getElementById("id-retro-board-title-text");
+    const retroTitleText = document.getElementById("id-retroboard-title-txt");
     const retroCommentText = document.getElementById("id-comment-add-content-txt");
     const retroMessageCancelBtn = document.getElementById("id-retro-model-cancel-btn");
     const retroMessageDoneBtn = document.getElementById("id-retro-model-done-btn");
@@ -32,7 +34,7 @@
     const commentSectionForActionItem = document.getElementById("id-retro-item-comment-section");
     const commentList = document.getElementById("id-comment-list");
 
-    retroTitleText.addEventListener("keypress", function (event) {
+    retroTitleEditText.addEventListener("keypress", function (event) {
         if (event.key == "Enter") {
             event.preventDefault();
             document.getElementById("id-retro-board-title-btn").click();
@@ -54,11 +56,15 @@
     const modelRetroItemType = document.getElementById("id-model-retro-item-type");
 
     let retroModel;
+    let completeRetroComfirmationModel;
+    let retroTitleErrorModel;
     let autoRefreshTimer;
     let isDeletePrevRetroEnabled = false;
 
     document.addEventListener('DOMContentLoaded', function () {
         retroModel = new bootstrap.Modal('#id-retro-item-detail-model');
+        completeRetroComfirmationModel = new bootstrap.Modal('#id-model-retro-complete-confirmation');
+        retroTitleErrorModel = new bootstrap.Modal('#id-model-retro-title-error');
 
         google.script.run
             .withSuccessHandler(onStartRetroSpective)
@@ -263,6 +269,15 @@
         }
 
         console.log("AutoRefresh - Completed");
+    }
+
+    function onCompleteRetroboardClicked() {
+        const newTitle = retroTitleText.value;
+        if (newTitle === "!") {
+            retroTitleErrorModel.show();
+        } else {
+            completeRetroComfirmationModel.show();
+        }
     }
 
     function doOnCompleteRetro() {
@@ -546,7 +561,7 @@
     }
 
     function onUpdateTitleClicked() {
-        const newTitle = retroTitleText.value;
+        const newTitle = retroTitleEditText.value;
         if (newTitle !== "") {
             google.script.run
                 .withSuccessHandler(function (url) {

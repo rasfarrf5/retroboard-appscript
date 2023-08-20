@@ -1,13 +1,21 @@
 <script>
     const ESCASPE_QUOTES = "[DQTS]";
     document.getElementById("id-btn-complete-retro").addEventListener("click", doOnCompleteRetro);
+    document.getElementById("id-prev-retro-complete-confirmation-btn").addEventListener("click", onCompleteRetroboardClicked);
 
     const ulPrevActions = document.getElementById("id-prev-action-items");
     const cardPrevActions = document.getElementById("id-prev-action-items-card");
     const loadingIndicator = document.getElementById("id-loading-indicator");
     const completeRetroUrl = document.getElementById("id-complete-retro-url");
+    const retroTitleText = document.getElementById("id-prev-retroboard-title-txt");
+
+    let completeRetroComfirmationModel;
+    let retroTitleErrorModel;
 
     document.addEventListener('DOMContentLoaded', function () {
+        completeRetroComfirmationModel = new bootstrap.Modal('#id-model-retro-complete-confirmation');
+        retroTitleErrorModel = new bootstrap.Modal('#id-model-retro-title-error');
+
         google.script.run
             .withSuccessHandler(onPrevActionLoaded)
             .loadPrevActionItems();
@@ -27,6 +35,15 @@
             } else {
                 createLiElementForUlNew(ulPrevActions, prevActionItem);
             }
+        }
+    }
+
+    function onCompleteRetroboardClicked() {
+        const newTitle = retroTitleText.value;
+        if (newTitle === "!") {
+            retroTitleErrorModel.show();
+        } else {
+            completeRetroComfirmationModel.show();
         }
     }
 

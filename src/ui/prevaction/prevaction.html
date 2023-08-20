@@ -26,6 +26,7 @@
             <br/>
             <br/>
             <br/>
+            <input id="id-prev-retroboard-title-txt" type="hidden" value="<?= title ?>"/>
             <input id="id-username-text" type="hidden" value="<?= username ?>"/>
             <input id="id-complete-retro-url" type="hidden" value="<?= completedUrl ?>"/>
 
@@ -55,7 +56,7 @@
             <div class="col">
                 <div class="d-grid mx-auto mb-3 align-middle">
                     <button class="btn btn-primary btn-lg text-light me-2" type="button"
-                            data-bs-toggle="modal" data-bs-target="#id-model-retro-complete-confirmation">Complete Retro
+                            id="id-prev-retro-complete-confirmation-btn">Complete Retro
                     </button>
                 </div>
             </div>
@@ -97,6 +98,20 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="id-model-retro-title-error" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body border-0">
+                Please update the retroboard title and try again!
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Got it</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="id-model-retro-completing" aria-hidden="true"
      aria-labelledby="modelLabelCompleteLoading"
      data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">

@@ -32,8 +32,13 @@ function completeRetroWithoutClearPrevAction() {
     const destSheetName = getRetroTitle();
     retroSheet.copyTo(spreadSheet).setName(destSheetName);
 
-    retroSheet.getRange("A2:D50").clearContent();
-    retroSheet.getRange("G2:K50").clearContent();
+    const currActionItems = getCurrentActionItems();
+    const previousActionItems = getPrevActionMessages();
+
+    retroSheet.getRange("A2:K50").clearContent();
+
+    const actionItems = currActionItems.concat(previousActionItems);
+    addPrevActionRetroItem(actionItems);
 
     clearRetroTitle();
 
@@ -183,15 +188,4 @@ function updateCommentById(columnId, contentColId, id, commentText) {
     }
 
     return false;
-}
-
-function getCurrentActionItems() {
-    return getRetroSheet().getRange("F2:F").getValues()
-        .filter(function (t) {
-            return t[0] !== "" && t[1] !== "";
-        })
-        .map(function (e) {
-            const item = JSON.parse(e);
-            return item.message;
-        });
 }

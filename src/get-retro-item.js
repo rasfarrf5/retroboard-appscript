@@ -89,3 +89,13 @@ function getMessagesList(username, content) {
             }
         });
 }
+
+function getCurrentActionItems() {
+    return getRetroSheet().getRange("F2:F").getValues()
+        .filter(function (t) {
+            return t[0] !== "" && t[1] !== "";
+        })
+        .map(function (item) {
+            return item;
+        });
+}

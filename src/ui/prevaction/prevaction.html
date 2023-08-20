@@ -10,9 +10,9 @@
     <?!= include("ui/common/css-support"); ?>
 </head>
 
-<body class="position-relative">
+<body>
 <div class="wrapper">
-    <nav class="navbar fixed-top bg-light">
+    <nav class="navbar fixed-top bg-light header">
         <div class="container-fluid">
             <a class="navbar-brand">
                 <img src="<?= companyLogo ?>" alt="Logo" height="32" class="d-inline-block align-middle me-2">
@@ -21,68 +21,63 @@
             </a>
         </div>
     </nav>
-    <br/>
-    <br/>
     <div class="content">
         <div style="height:800px;">
+            <br/>
+            <br/>
             <br/>
             <input id="id-username-text" type="hidden" value="<?= username ?>"/>
             <input id="id-complete-retro-url" type="hidden" value="<?= completedUrl ?>"/>
 
             <div class="container">
                 <h5>Previous Action Items</h5>
-                <br/>
+                <!-- Start: Retro Items Section-->
+                <div class="row pb-2 text-center">
+                    <div class="col-auto p-1">
+                        <ul class="list-unstyled" id="id-prev-action-items"></ul>
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-md-3 g-4" id="id-prev-action-items-card"></div>
+                <!-- End: Retro Items Section-->
+
                 <div id="id-loading-indicator" class="text-center">
                     <div class="spinner-border m-5" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
-
-                <!-- Start: Retro Items Section-->
-                <div class="row pb-5 text-center">
-                    <div class="col-auto p-1">
-                        <ul class="list-unstyled" id="id-prev-action-items"></ul>
-                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <br/>
+        <div class="row align-baseline">
+            <div class="col"></div>
+            <div class="col">
+                <div class="d-grid mx-auto mb-3 align-middle">
+                    <button class="btn btn-primary btn-lg text-light me-2" type="button"
+                            data-bs-toggle="modal" data-bs-target="#id-model-retro-complete-confirmation">Complete Retro
+                    </button>
                 </div>
-                <!-- End: Retro Items Section-->
-
-                <div class="row row-cols-1 row-cols-md-3 g-4" id="id-prev-action-items-card"></div>
+            </div>
+            <div class="col">
+                <ul class="pagination me-3 justify-content-end">
+                    <li class="page-item">
+                        <a class="page-link" href="<?= retroboardUrl ?>">Retroboard</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">Prev Action Items</a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="footer">
-
-    <br/>
-    <div class="row align-baseline">
-        <div class="col"></div>
-        <div class="col">
-            <div class="d-grid mx-auto mb-3 align-middle">
-                <button class="btn btn-primary btn-lg text-light me-2" type="button"
-                        data-bs-toggle="modal" data-bs-target="#id-model-retro-complete-confirmation">Complete Retro
-                </button>
-            </div>
-        </div>
-        <div class="col">
-            <ul class="pagination me-3 justify-content-end">
-                <li class="page-item">
-                    <a class="page-link" href="<?= retroboardUrl ?>">Retroboard</a>
-                </li>
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">Prev Action Items</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="col text-bg-success bg-opacity-10 py-2">
-        <div class="text-center">
+        <div class="col text-bg-success bg-opacity-10 py-2">
+            <div class="text-center">
                 <span class="text-secondary">
                     All content posted here are private and confidential.<br/>© 2022 Copyright - <?= companyName ?>
                 </span>
+            </div>
         </div>
     </div>
-</div>
 </div>
 
 <!-- Start: Retro Open Card Model -->

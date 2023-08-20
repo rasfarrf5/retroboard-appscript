@@ -1,8 +1,9 @@
 <script>
-
+    const ESCASPE_QUOTES = "[DQTS]";
     document.getElementById("id-btn-complete-retro").addEventListener("click", doOnCompleteRetro);
 
     const ulPrevActions = document.getElementById("id-prev-action-items");
+    const cardPrevActions = document.getElementById("id-prev-action-items-card");
     const loadingIndicator = document.getElementById("id-loading-indicator");
     const completeRetroUrl = document.getElementById("id-complete-retro-url");
 
@@ -18,10 +19,14 @@
     }
 
     function showRetroItems(retroItems) {
-        for (var i = 0; i < retroItems.prevActions.length; i++) {
-            var retroItem = retroItems.prevActions[i];
-
-            createLiElementForUlNew(ulPrevActions, retroItem);
+        for (let i = 0; i < retroItems.prevActions.length; i++) {
+            let prevActionItem = retroItems.prevActions[i];
+            if (isJsonString(prevActionItem)) {
+                let actionItem = JSON.parse(prevActionItem);
+                createCardPrevActionItems(actionItem);
+            } else {
+                createLiElementForUlNew(ulPrevActions, prevActionItem);
+            }
         }
     }
 
@@ -29,9 +34,13 @@
         const allNotChecked = document.querySelectorAll('input[type=checkbox]:not(:checked)');
         const allNotCheckValues = Array.from(allNotChecked).map(checkbox => checkbox.value);
 
+        let mappedNotCheckedValues = [];
+        for (let i = 0; i < allNotCheckValues.length; i++) {
+            mappedNotCheckedValues.push(allNotCheckValues[i].replaceAll(ESCASPE_QUOTES, "\""));
+        }
         google.script.run.withSuccessHandler(function (_) {
             window.open(completeRetroUrl.value, '_top');
-        }).completeRetro(allNotCheckValues);
+        }).completeRetro(mappedNotCheckedValues);
     }
 
     function toggleLoadingIndicator(showLoading) {
@@ -43,12 +52,32 @@
     }
 
     function createLiElementForUlNew(ulElement, retroItem) {
-        var content = '<div class="card p-3 mt-2 text-start shadow-sm"><div class="form-check"><input class="form-check-input" type="checkbox" value="' + retroItem + '" id="id-prev-action-' + retroItem + '"><label class="form-check-label" for="id-prev-action-' + retroItem + '">' + retroItem + '</label></div></div>'
+        let content = '<div class="card p-3 mt-2 text-start shadow-sm"><div class="form-check"><input class="form-check-input" type="checkbox" value="' + retroItem + '" id="id-prev-action-' + retroItem + '"><label class="form-check-label" for="id-prev-action-' + retroItem + '">' + retroItem + '</label></div></div>'
 
-        var li = document.createElement("li");
+        let li = document.createElement("li");
         li.innerHTML = content;
         li.id = retroItem;
 
         ulElement.appendChild(li);
+    }
+
+    function createCardPrevActionItems(retroItem) {
+        let commentNode = '<ul class="list-group list-group-flush">';
+        for (let i = 0; i < retroItem.comments.length; i++) {
+            commentNode += '<li class="list-group-item"><i class="bi bi-quote text-dark me-2"></i>' + retroItem.comments[i] + '</li>';
+        }
+        commentNode += '</ul>';
+
+        const checkboxValue = JSON.stringify(retroItem).replace(/\\n/g, '').replaceAll('\"', ESCASPE_QUOTES);
+        console.log(checkboxValue);
+
+        let newContent = '<div class="card shadow-sm"><div class="card-body"><div class="form-check"><input class="form-check-input" type="checkbox" value="' + checkboxValue + '" id="id-prev-action-' + retroItem.message + '"/><label class="form-check-label card-text" for="id-prev-action-' + retroItem.message + '">' + retroItem.message + '</label></div></div>' + commentNode + '</div>';
+
+        let colDiv = document.createElement("div");
+        colDiv.setAttribute("class", "col");
+        colDiv.innerHTML = newContent;
+        colDiv.id = retroItem.message;
+
+        cardPrevActions.appendChild(colDiv);
     }
 </script>

@@ -64,6 +64,7 @@ function loadCompletedPage(userName) {
     htmlService.companyName = getCompanyName();
     htmlService.companyLogo = getCompanyLogo();
     htmlService.completedLogo = getCompletedLogo();
+    htmlService.retroboardUrl = ScriptApp.getService().getUrl();
     htmlService.username = userName;
 
     return htmlService.evaluate().setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);

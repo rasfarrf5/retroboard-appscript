@@ -1,7 +1,44 @@
 <script>
 
-function isNotEmpty(data) {
-    return typeof data == 'string' && data !== ''
-}
+    function isNotEmpty(data) {
+        return typeof data == 'string' && data !== ''
+    }
+
+    function isJsonString(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    function escape(s) {
+        return ('' + s)
+            .replace(/\\/g, '\\\\')
+            .replace(/\t/g, '\\t')
+            .replace(/\n/g, '\\n')
+            .replace(/\u00A0/g, '\\u00A0')
+            .replace(/&/g, '\\x26')
+            .replace(/'/g, '\\x27')
+            .replace(/"/g, '\\x22')
+            .replace(/</g, '\\x3C')
+            .replace(/>/g, '\\x3E')
+            .trim();
+    }
+
+    function unescape(s) {
+        s = ('' + s)
+            .replace(/\\x3E/g, '>')
+            .replace(/\\x3C/g, '<')
+            .replace(/\\x22/g, '"')
+            .replace(/\\x27/g, "'")
+            .replace(/\\x26/g, '&')
+            .replace(/\\u00A0/g, '\u00A0')
+            .replace(/\\n/g, '\n')
+            .replace(/\\t/g, '\t');
+
+        return s.replace(/\\\\/g, '\\');
+    }
 
 </script>

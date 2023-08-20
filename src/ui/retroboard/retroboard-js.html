@@ -81,7 +81,7 @@
         console.log("AutoRefresh - Started");
 
         autoRefreshTimer = setInterval(function () {
-            console.log("AutoRefresh - Loading Start");
+            console.log("AutoRefresh - Loading");
 
             google.script.run
                 .withSuccessHandler(updateRetroItems)
@@ -166,7 +166,7 @@
     }
 
     function updateRetroItems(retroItems) {
-        console.log("Updating retroitem");
+        console.log("Updating retro item");
 
         let i;
         let item;
@@ -262,7 +262,7 @@
             }
         }
 
-        console.log("AutoRefresh - Loading End");
+        console.log("AutoRefresh - Completed");
     }
 
     function doOnCompleteRetro() {
@@ -423,7 +423,7 @@
 
     function addComment(comment) {
         const li = document.createElement("li");
-        li.innerHTML = comment
+        li.innerHTML = '<i class="bi bi-chat-right-quote text-white me-2"></i>' + comment;
         li.setAttribute("class", "list-group-item bg-transparent text-white");
         commentList.appendChild(li);
         commentList.setAttribute("class", "list-group");
@@ -582,34 +582,6 @@
 
     function showStatus(rowNum) {
         console.log(rowNum);
-    }
-
-    function escape(s) {
-        return ('' + s)
-            .replace(/\\/g, '\\\\')
-            .replace(/\t/g, '\\t')
-            .replace(/\n/g, '\\n')
-            .replace(/\u00A0/g, '\\u00A0')
-            .replace(/&/g, '\\x26')
-            .replace(/'/g, '\\x27')
-            .replace(/"/g, '\\x22')
-            .replace(/</g, '\\x3C')
-            .replace(/>/g, '\\x3E')
-            .trim();
-    }
-
-    function unescape(s) {
-        s = ('' + s)
-            .replace(/\\x3E/g, '>')
-            .replace(/\\x3C/g, '<')
-            .replace(/\\x22/g, '"')
-            .replace(/\\x27/g, "'")
-            .replace(/\\x26/g, '&')
-            .replace(/\\u00A0/g, '\u00A0')
-            .replace(/\\n/g, '\n')
-            .replace(/\\t/g, '\t');
-
-        return s.replace(/\\\\/g, '\\');
     }
 
 </script>

@@ -426,6 +426,7 @@
         li.innerHTML = comment
         li.setAttribute("class", "list-group-item bg-transparent text-white");
         commentList.appendChild(li);
+        commentList.setAttribute("class", "list-group");
     }
 
     function createLiElementForUlNew(ulElement, retroItem, cardType, textColor, isLocal) {
@@ -517,7 +518,7 @@
             if (commentContent !== "") {
                 commentList.setAttribute("class", "list-group");
                 for (let i = 0; i < comments.length; i++) {
-                    addComment(comments);
+                    addComment(comments[i]);
                 }
             } else {
                 commentList.setAttribute("class", "list-group d-none");

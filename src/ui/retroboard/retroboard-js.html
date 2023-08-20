@@ -151,9 +151,9 @@
             ulPrevRetroboards.appendChild(li);
 
             const checkedLi = document.createElement("li");
-            checkedLi.innerHTML = '<input class="form-check-input me-1 delete-prev-retroboard" type="checkbox" value="' + retroItem.name + '" id="prev-retro-check-' + retroItem.id + '"><label class="form-check-label" for="prev-retro-check-' + retroItem.id + '">' + retroItem.name + '</label>';
+            checkedLi.innerHTML = '<input class="form-check-input me-1 delete-prev-retroboard me-2" type="checkbox" value="' + retroItem.name + '" id="prev-retro-check-' + retroItem.id + '"><label class="form-check-label" for="prev-retro-check-' + retroItem.id + '">' + retroItem.name + '</label>';
             checkedLi.id = retroItem.id;
-            checkedLi.setAttribute("class", "list-group-item");
+            checkedLi.setAttribute("class", "list-group-item w-auto");
             ulCheckPrevRetroboards.appendChild(checkedLi);
         }
 
@@ -274,11 +274,11 @@
     function toggleDeletePrevRetroboard() {
         isDeletePrevRetroEnabled = !isDeletePrevRetroEnabled;
         if (isDeletePrevRetroEnabled) {
-            ulPrevRetroboards.className = "list-group list-group-flush hidden";
-            ulCheckPrevRetroboards.className = "list-group";
-            deleteSelectedRetroBtn.classList = "btn btn-danger";
+            ulPrevRetroboards.className = "list-group hidden";
+            ulCheckPrevRetroboards.className = "list-group w-100";
+            deleteSelectedRetroBtn.classList = "btn btn-danger w-100";
         } else {
-            ulPrevRetroboards.className = "list-group list-group-flush";
+            ulPrevRetroboards.className = "list-group w-100";
             ulCheckPrevRetroboards.className = "list-group hidden";
             deleteSelectedRetroBtn.classList = "btn btn-danger hidden";
         }

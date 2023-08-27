@@ -12,12 +12,11 @@
 
 <body class="position-relative">
 <div class="wrapper">
-    <nav class="navbar fixed-top">
+    <nav class="navbar fixed-top header bg-light-subtle shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand">
                 <img src="<?= companyLogo ?>" alt="Logo" height="32" class="d-inline-block align-middle me-2">
-                <span class="align-middle"><?= title ?></span>
-                <span class="navbar-text align-middle"> - Retrospective</span>
+                <span class="align-middle"><?= prevRetroboardName ?></span>
             </a>
             <div class="d-flex">
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
@@ -125,9 +124,9 @@
                 <a class="page-link" href="#">Previous Retroboard</a>
             </li>
         </ul>
-        <div class="col text-bg-success bg-opacity-10 py-2">
+        <div class="col bg-success-subtle py-2">
             <div class="text-center">
-                <span class="text-secondary">
+                <span class="text-body-tertiary">
                     All content posted here are private and confidential.<br/>© 2022 Copyright - <?= companyName ?>
                 </span>
             </div>

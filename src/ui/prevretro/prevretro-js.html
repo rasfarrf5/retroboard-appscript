@@ -11,6 +11,7 @@
 
     const prevRetroboardName = document.getElementById("id-prev-retroboard-name");
     const prevRetroboardUrl = document.getElementById("id-prev-retroboard-url");
+    const htmlParentTag = document.querySelector("html");
 
     let retroModel;
     // Model
@@ -23,6 +24,9 @@
         google.script.run
             .withSuccessHandler(showRetroItems)
             .loadPrevRetroboardItems(prevRetroboardName.value);
+
+        let darkThemEnabled = isDarkTheme();
+        htmlParentTag.setAttribute("data-bs-theme", darkThemEnabled ? "dark" : "light");
     });
 
     function showRetroItems(retroItems) {

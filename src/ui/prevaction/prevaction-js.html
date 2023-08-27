@@ -8,6 +8,7 @@
     const loadingIndicator = document.getElementById("id-loading-indicator");
     const completeRetroUrl = document.getElementById("id-complete-retro-url");
     const retroTitleText = document.getElementById("id-prev-retroboard-title-txt");
+    const htmlParentTag = document.querySelector("html");
 
     let completeRetroComfirmationModel;
     let retroTitleErrorModel;
@@ -19,6 +20,9 @@
         google.script.run
             .withSuccessHandler(onPrevActionLoaded)
             .loadPrevActionItems();
+
+        let darkThemEnabled = isDarkTheme();
+        htmlParentTag.setAttribute("data-bs-theme", darkThemEnabled ? "dark" : "light");
     });
 
     function onPrevActionLoaded(retroItems) {
@@ -79,6 +83,9 @@
     }
 
     function createCardPrevActionItems(retroItem) {
+        if (retroItem.comments === undefined) {
+            return;
+        }
         let commentNode = '<ul class="list-group list-group-flush">';
         for (let i = 0; i < retroItem.comments.length; i++) {
             commentNode += '<li class="list-group-item"><i class="bi bi-quote text-dark me-2"></i>' + retroItem.comments[i] + '</li>';
@@ -86,7 +93,6 @@
         commentNode += '</ul>';
 
         const checkboxValue = JSON.stringify(retroItem).replace(/\\n/g, '').replaceAll('\"', ESCASPE_QUOTES);
-        console.log(checkboxValue);
 
         let newContent = '<div class="card shadow-sm"><div class="card-body"><div class="form-check"><input class="form-check-input" type="checkbox" value="' + checkboxValue + '" id="id-prev-action-' + retroItem.message + '"/><label class="form-check-label card-text" for="id-prev-action-' + retroItem.message + '">' + retroItem.message + '</label></div></div>' + commentNode + '</div>';
 

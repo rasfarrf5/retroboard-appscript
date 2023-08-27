@@ -41,4 +41,17 @@
         return s.replace(/\\\\/g, '\\');
     }
 
+    // Dark Theme Storage
+    function isDarkTheme() {
+        const enabled = localStorage.getItem('dark-theme');
+        if (enabled === undefined) {
+            return false;
+        }
+        return enabled === 'true';
+    }
+
+    function setDarkTheme(isEnabled) {
+        return localStorage.setItem('dark-theme', isEnabled);
+    }
+
 </script>

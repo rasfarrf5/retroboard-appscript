@@ -1,0 +1,9 @@
+<script>
+    const htmlParentTag = document.querySelector("html");
+
+    document.addEventListener('DOMContentLoaded', function () {
+        let darkThemEnabled = isDarkTheme();
+        htmlParentTag.setAttribute("data-bs-theme", darkThemEnabled ? "dark" : "light");
+    });
+
+</script>

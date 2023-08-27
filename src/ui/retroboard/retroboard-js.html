@@ -14,6 +14,7 @@
     document.getElementById("id-comment-add-btn").addEventListener("click", onCommentAddClicked);
     document.getElementById("id-retroboard-complete-retro-btn").addEventListener("click", onCompleteRetroboardClicked);
 
+    const htmlParentTag = document.querySelector("html");
     const userNameText = document.getElementById("id-username-text");
     const prevRetroboardUrl = document.getElementById("id-prev-retroboard-url");
     const loadingIndicator = document.getElementById("id-loading-indicator");
@@ -32,6 +33,7 @@
     const retroMessageDoneBtn = document.getElementById("id-retro-model-done-btn");
     const deleteSelectedRetroBtn = document.getElementById("id-delete-selected-retro-btn");
     const commentSectionForActionItem = document.getElementById("id-retro-item-comment-section");
+    const darkThemeSwitch = document.getElementById("id-dark-theme-switch");
     const commentList = document.getElementById("id-comment-list");
 
     retroTitleEditText.addEventListener("keypress", function (event) {
@@ -69,6 +71,10 @@
         google.script.run
             .withSuccessHandler(onStartRetroSpective)
             .loadRetroItems();
+
+        let darkThemEnabled = isDarkTheme();
+        darkThemeSwitch.checked = darkThemEnabled;
+        htmlParentTag.setAttribute("data-bs-theme", darkThemEnabled ? "dark" : "light");
     });
 
     function onStartRetroSpective(retroItems) {
@@ -101,6 +107,12 @@
         } else {
             stopAutoRefresh();
         }
+    }
+
+    function onDarkThemeEnabled(darkThemeCheckBox) {
+        let isDarkTheme = darkThemeCheckBox.checked;
+        setDarkTheme(isDarkTheme);
+        htmlParentTag.setAttribute("data-bs-theme", isDarkTheme ? "dark" : "light");
     }
 
     function showRetroItems(retroItems) {
@@ -555,7 +567,7 @@
     let actionItemCommentWithId = {};
 
     function addOrUpdateCommentById(id, comment) {
-        console.log(id in actionItemCommentWithId);
+        console.log("addOrUpdateCommentById : " + id in actionItemCommentWithId);
         if (id in actionItemCommentWithId) {
             if (!actionItemCommentWithId[id].includes(comment)) {
                 actionItemCommentWithId[id] = actionItemCommentWithId[id] + "," + comment;
@@ -618,7 +630,7 @@
     }
 
     function showStatus(rowNum) {
-        console.log(rowNum);
+        console.log("showStatus : " + rowNum);
     }
 
 </script>
